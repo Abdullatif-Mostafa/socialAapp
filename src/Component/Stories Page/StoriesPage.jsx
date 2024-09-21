@@ -125,55 +125,7 @@ const StoriesPage = () => {
             </Box>
           </Box>
         ))}
-      </Flex>
-      {selectedStoryIndex !== null && (
-        <Modal   isOpen={true} onClose={closeStory} isCentered>
-          <ModalOverlay />
-          <ModalContent marginTop={"40px"} maxW="400px" bg="black" color="white">
-            <ModalCloseButton color="white" />
-            <ModalBody p={0} position="relative">
-              <Image
-                src={stories[selectedStoryIndex].content}
-                alt={stories[selectedStoryIndex].name}
-                objectFit="cover"
-                w="100%"
-                h="500px"
-              />
-              <Text textAlign="center" mt={3}>
-                {stories[selectedStoryIndex].name}
-              </Text>
-
-              {/* Navigation buttons */}
-              {selectedStoryIndex > 0 && (
-                <Button
-                  position="absolute"
-                  top="50%"
-                  left="10px"
-                  transform="translateY(-50%)"
-                  onClick={prevStory}
-                  bg="rgba(0, 0, 0, 0.5)"
-                  color="white"
-                >
-                  <ChevronLeftIcon />
-                </Button>
-              )}
-              {selectedStoryIndex < stories.length - 1 && (
-                <Button
-                  position="absolute"
-                  top="50%"
-                  right="10px"
-                  transform="translateY(-50%)"
-                  onClick={nextStory}
-                  bg="rgba(0, 0, 0, 0.5)"
-                  color="white"
-                >
-                  <ChevronRightIcon />
-                </Button>
-              )}
-            </ModalBody>
-          </ModalContent>
-        </Modal>
-      )}
+      </Flex>   
     </Box>
   );
 };
