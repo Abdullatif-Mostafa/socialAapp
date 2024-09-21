@@ -31,6 +31,7 @@ import PostActions from './PostActions';
 import RightSidebar from './../7-rightSide/RightSide';
 import LeftSidebar from './../8-leftSide/LeftSide';
 import SharePost from './SharePost';
+import StoriesPage from '../Stories Page/StoriesPage';
 
 function Hero() {
   const [page, setPage] = useState(1);
@@ -149,6 +150,7 @@ function Hero() {
 
         <div className='' xs={12}>
           <CreatePost />
+          <StoriesPage/>
           {/* Show posts or loading spinner */}
           {posts && posts.length > 0 ? (
             posts.map((post) => (

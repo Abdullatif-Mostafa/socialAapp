@@ -20,6 +20,7 @@ import Marketplace from './Component/MarketPlace/MarketPlace';
 import Messenger from './Component/Messanger/Messages';
 import AddAnotherAccount from './Component/1-header/AddAnotherAccount';
 import ForgetPassword from './Component/Forget Password/ForgetPassword';
+import StoriesPage from './Component/Stories Page/StoriesPage';
 // import Login from './Component/login/Login';
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
       <Route path='/MarketPlace' element={<Marketplace/>}/>
       <Route path='/AddAnotherAccount' element={<AddAnotherAccount/>}/>
       <Route path='/ForgetPassword' element={<ForgetPassword/>}/>
+      <Route path='/StoriesPage' element={<StoriesPage/>}/>
     </Routes>
     </div>
   );
