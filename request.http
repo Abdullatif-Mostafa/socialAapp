@@ -1,0 +1,24 @@
+# GET https://tarmeezacademy.com/api/v1/posts?limit=50
+
+# GET http://localhost:4000/Products
+
+# GET https://tarmeezacademy.com/api/v1/posts
+# POST https://tarmeezacademy.com/api/v1/register
+# Content-Type: application/json
+
+# {
+#     "username": "tarmeez23",
+#     "name":"@saadali33",
+#     "email": "C6QJ7@example.com",
+#     "password": "tarmeez123",
+# }
+
+POST https://tarmeezacademy.com/api/v1/login
+Content-Type: application/json
+
+{
+    "username": "Ali",
+    "password": "111111",
+}
+
+

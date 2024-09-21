@@ -1,0 +1,12 @@
+.tabDetails
+{
+    background-color: #efefef;
+    margin-left: 10px;
+    display: flex;
+    gap: 6px;
+    padding: 5px !important;
+}
+.tabDetails:hover
+{
+    background-color: #CBD5E0 !important;
+}
