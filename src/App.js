@@ -39,33 +39,37 @@ function App() {
 
   return (
     <div>
-      {token &&
-      <>
-      <Header />
+      {token && <Header />}
+      
       <Routes>
-        <Route path="/" element={<Hero />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/main" element={<Main />} />
+        {/* Public Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/friendspage" element={<FriendsPage />} />
-        <Route path="/realspage" element={<ReelsPage />} />
-        <Route path="/savedItems" element={<SavedItemsPage />} />
-        <Route path="/newsPage" element={<NewsPage />} />
-        <Route path="/memoriesPage" element={<MemoriesPage />} />
-        <Route path="/adsPage" element={<AdsPage />} />
-        <Route path="/settingsPage" element={<SettingsPage />} />
-        <Route path="/createPost" element={<CreatePost />} />
-        <Route path="/messenger" element={<Messenger />} />
-        <Route path="/marketPlace" element={<Marketplace />} />
-        <Route path="/addAnotherAccount" element={<AddAnotherAccount />} />
-        <Route path="/storiesPage" element={<StoriesPage />} />
         <Route path="/forgetPassword" element={<ForgetPassword />} />
+
+        {/* Protected Routes */}
+        {token && (
+          <>
+            <Route path="/" element={<Hero />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/main" element={<Main />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/friendspage" element={<FriendsPage />} />
+            <Route path="/realspage" element={<ReelsPage />} />
+            <Route path="/savedItems" element={<SavedItemsPage />} />
+            <Route path="/newsPage" element={<NewsPage />} />
+            <Route path="/memoriesPage" element={<MemoriesPage />} />
+            <Route path="/adsPage" element={<AdsPage />} />
+            <Route path="/settingsPage" element={<SettingsPage />} />
+            <Route path="/createPost" element={<CreatePost />} />
+            <Route path="/messenger" element={<Messenger />} />
+            <Route path="/marketPlace" element={<Marketplace />} />
+            <Route path="/addAnotherAccount" element={<AddAnotherAccount />} />
+            <Route path="/storiesPage" element={<StoriesPage />} />
+          </>
+        )}
       </Routes>
-      </>
-    }
     </div>
   );
 }
