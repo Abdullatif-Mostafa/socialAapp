@@ -39,7 +39,9 @@ function App() {
 
   return (
     <div>
-      {token && <Header />}
+      {!token &&
+      <>
+      <Header />
       <Routes>
         <Route path="/" element={<Hero />} />
         <Route path="/contact" element={<Contact />} />
@@ -62,6 +64,8 @@ function App() {
         <Route path="/storiesPage" element={<StoriesPage />} />
         <Route path="/forgetPassword" element={<ForgetPassword />} />
       </Routes>
+      </>
+    }
     </div>
   );
 }
