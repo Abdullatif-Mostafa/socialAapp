@@ -23,14 +23,16 @@ import ForgetPassword from './Component/Forget Password/ForgetPassword';
 import StoriesPage from './Component/Stories Page/StoriesPage';
 // import Login from './Component/login/Login';
 function App() {
+  const token=localStorage.getItem("token")
+  console.log("token ",token);
   const condation=false
   return (
 
      <div className=''>
-    {condation && 
+    {!token && 
     <Login/>}
 
-    {!condation &&
+    {token &&
     <div>
       <Header/>
     <Routes>
