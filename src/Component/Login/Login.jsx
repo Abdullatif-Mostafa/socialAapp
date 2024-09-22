@@ -115,7 +115,7 @@ const Login = () => {
           Swal.showLoading();
         }
       }).then(() => {
-        navigate("/");
+        // navigate("/");
       });
     }
   }, [token, navigate]);
