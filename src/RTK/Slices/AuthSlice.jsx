@@ -45,8 +45,8 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (credentials) 
 
     // Define body
     var body = {
-      username: "ali12345@gmail.com",  // Ensure correct mapping
-      password: "111111"
+      username:username,  // Ensure correct mapping
+      password: password
     };
 
     // Define request options
@@ -74,7 +74,7 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (credentials) 
    
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data.user));
-    localStorage.setItem('userId', data.user._id);
+    localStorage.setItem('userId', data.user.id);
 
     // Return the data for Redux
     return data;

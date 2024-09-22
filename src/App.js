@@ -23,11 +23,16 @@ import ForgetPassword from './Component/Forget Password/ForgetPassword';
 import StoriesPage from './Component/Stories Page/StoriesPage';
 // import Login from './Component/login/Login';
 function App() {
+  const condation=false
   return (
+
      <div className=''>
-    {/* <Login/> */}
-    
-    <Header/>
+    {condation && 
+    <Login/>}
+
+    {!condation &&
+    <div>
+      <Header/>
     <Routes>
       <Route path='/' element={<>
         <Hero/>
@@ -53,6 +58,7 @@ function App() {
       <Route path='/ForgetPassword' element={<ForgetPassword/>}/>
       <Route path='/StoriesPage' element={<StoriesPage/>}/>
     </Routes>
+    </div>}
     </div>
   );
 }

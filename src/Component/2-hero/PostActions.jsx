@@ -92,8 +92,8 @@ const PostActions = ({ postUri, imageUrl }) => {
 
   return (
     <Popover>
-      <PopoverTrigger>
-        <Button flex={1} variant='ghost' leftIcon={<FiMoreVertical />}>
+      <PopoverTrigger >
+        <Button width={"20px"}  flex={1} justifyContent={"center"} variant='ghost' marginRight={"15px"} alignItems={"center"} leftIcon={<FiMoreVertical />}>
         </Button>
       </PopoverTrigger>
 

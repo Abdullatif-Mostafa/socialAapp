@@ -9,29 +9,40 @@ import TextField from '@mui/material/TextField';
 import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from "@mui/material";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import axios from 'axios';
 
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errors, setErrors] = useState({});
   const [showPasswordDetails, setShowPasswordDetails] = useState(false);
-  const [formData, setformData] = useState({
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const [csrfToken, setCsrfToken] = useState(null); // CSRF token state
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // Fetch CSRF Token on Component Mount
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      try {
+        const response = await axios.get('https://tarmeezacademy.com/api/v1/csrf-token');
+        setCsrfToken(response.data.csrfToken); // Store the CSRF token
+      } catch (error) {
+        console.error("Error fetching CSRF token", error);
+      }
+    };
+
+    fetchCsrfToken();
+  }, []);
+
   const handleClickShowPassword = () => setShowPasswordDetails((show) => !show);
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  const handleMouseUpPassword = (event) => {
-    event.preventDefault();
-  };
   const { token, error, loading, userId } = useSelector((state) => state.auth);
 
+  // Handle User Login
   async function handleLogin(newUserId) {
     const oldUserId = localStorage.getItem('userId');
 
@@ -50,10 +61,7 @@ const Login = () => {
     console.log(newCart, newFavorites);
   }
 
-  const showPassword = () => {
-    setPasswordVisible(!passwordVisible);
-  };
-
+  // Form Validation
   const validateForm = () => {
     const newErrors = {};
     if (!formData.email || !formData.password) {
@@ -67,89 +75,33 @@ const Login = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  // Handle Form Data Changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setformData((prevData) => ({ ...prevData, [name]: value }));
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
-  const login = async() => {
-    var myHeaders = new Headers();
-    myHeaders.append("Accept", "application/json");
-    myHeaders.append("Content-Type", "application/json"); // You need to specify the content type
-  
-    var body = {
-      username: "ali12345@gmail.com",
-      password: "111111"
-    };
-  
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: JSON.stringify(body), // Stringify the body here
-      redirect: 'follow'
-    };
-  
-    await fetch("https://tarmeezacademy.com/api/v1/login", requestOptions)
-      .then(response => response.json()) // Use .json() if the response is JSON
-      .then(result => console.log("result ",result))
-      .catch(error => console.log('error', error));
-  }
-//   const handleLoginData = async (e) => {
-//     console.log(" email and password ",formData.email,formData.password);
-    
-//     e.preventDefault();
-//     if (validateForm()) {
-//       // setLoading(true);
-  
-//       const requestOptions = {
-//         method: 'POST',
-//         headers: {
-//           "Accept": "application/json",
-//           "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({
-//           username: formData.email,
-//           password: formData.password
-//         })
-//       };
-// console.log(requestOptions.body)
-  
-//     // await  fetch("https://tarmeezacademy.com/api/v1/login", requestOptions)
-//     //     .then(response => {
-//     //       console.log(response);
-//     //       if (!response.ok) {
-//     //         throw new Error(`HTTP error! status: ${response.status}`);
-//     //       }
-//     //       return response.json();
-//     //     })
-//     //     .then(result => {
-//     //       if (result.token) {
-//     //         // Handle successful login
-//     //       } else {
-//     //         // setError(result.message || "فشل تسجيل الدخول");
-//     //         // setLoading(false);
-//     //       }
-//     //     })
-//     //     .catch(error => {
-//     //       console.error('Login Error:', error);
-//     //       // setError('فشل تسجيل الدخول');
-//     //       // setLoading(false);
-//     //     });
-//     await fetch("https://tarmeezacademy.com/api/v1/login", requestOptions)
-//     .then(response => response.json()) // Use .json() if the response is JSON
-//     .then(result => console.log("result ",result))
-//     .catch(error => console.log('error', error));
-//     }
-//   };
-  
+
+  // Handle Form Submission
+  const handleLoginData = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      dispatch(loginUser({
+        username: formData.email,
+        password: formData.password,
+      }));
+    } else {
+      console.log("فشل التحقق من صحة النموذج");
+    }
+  };
+
+  // Success Effect
   useEffect(() => {
-    login()
     if (token) {
       const newUserId = localStorage.getItem('userId');
       handleLogin(newUserId);
       Swal.fire({
         title: "تم تسجيل الدخول بنجاح!",
         text: "أهلاً بعودتك!",
-        // icon: "success",
         confirmButtonText: "الذهاب إلى الصفحة الرئيسية",
         timer: 1500,
         timerProgressBar: true,
@@ -158,7 +110,7 @@ const Login = () => {
           title: 'text-success',
           confirmButton: 'btn btn-success',
         },
-        backdrop: `rgba(0,123,255,0.4) left top no-repeat`,
+        backdrop: 'rgba(0,123,255,0.4) left top no-repeat',
         didOpen: () => {
           Swal.showLoading();
         }
@@ -168,13 +120,13 @@ const Login = () => {
     }
   }, [token, navigate]);
 
+  // Error Effect
   useEffect(() => {
     if (error) {
       Swal.fire({
         title: "فشل تسجيل الدخول",
-        // icon: "error",
+        text: error.message, // Displaying the error message from Redux
         confirmButtonText: "حاول مرة أخرى",
-        confirmButtonWidth:"100px",
         showClass: {
           popup: 'animate__animated animate__fadeInDown'
         },
@@ -189,27 +141,25 @@ const Login = () => {
         showDenyButton: true,
         denyButtonText: 'هل نسيت كلمة المرور؟',
         denyButtonColor: '#261F55',
-        backdrop: `rgba(0,123,255,0.4) left top no-repeat
-        `,
-
+        backdrop: 'rgba(0,123,255,0.4) left top no-repeat',
       }).then((result) => {
         if (result.isDenied) {
           navigate('/forgotpassword');
         }
       });
     }
-  }, [error]);
+  }, [error, navigate]);
 
   return (
     <div className="login-container" style={{ height: "100vh", width: "100%" }}>
       <div>
         <div className="container login contact-form" style={{}}>
           <h2 style={{ marginBottom: "25px", paddingTop: "30px" }}>تسجيل الدخول</h2>
-          <form onSubmit={login}>
+          <form onSubmit={handleLoginData}>
             <div className="">
               {/* Email */}
               <div>
-                <TextField style={{ direction: "" }}
+                <TextField
                   type="email"
                   name="email"
                   value={formData.email}
@@ -217,15 +167,16 @@ const Login = () => {
                   id="outlined-basic"
                   className="form-control mb-3"
                   label="البريد الالكتروني"
-                  variant="outlined" />
+                  variant="outlined"
+                />
               </div>
 
               {errors.email && (
                 <small className="errorMesg">{errors.email}</small>
               )}
+
               {/* Password */}
               <div>
-
                 <FormControl sx={{ width: '100%' }} variant="outlined" className="form-control">
                   <InputLabel htmlFor="outlined-adornment-password" sx={{ direction: 'rtl' }}>
                     كلمة المرور
@@ -238,15 +189,13 @@ const Login = () => {
                     id="outlined-adornment-password"
                     type={showPasswordDetails ? 'text' : 'password'}
                     endAdornment={
-                      <InputAdornment position="end" >
+                      <InputAdornment position="end">
                         <IconButton
                           aria-label="إظهار أو إخفاء كلمة المرور"
                           onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          onMouseUp={handleMouseUpPassword}
                           edge="end"
                         >
-                          {showPasswordDetails ?<Visibility /> : <VisibilityOff />}
+                          {showPasswordDetails ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                       </InputAdornment>
                     }
@@ -255,19 +204,21 @@ const Login = () => {
                   />
                 </FormControl>
               </div>
+
               {errors.password && (
                 <small className="errorMesg">{errors.password}</small>
               )}
               {errors.error && (
                 <small className="errorMesg">{errors.error}</small>
               )}
+
+              {/* Remember me */}
               <div className="checkbox">
                 <input
                   type="checkbox"
                   id="remember"
                   name="remember"
                   value="remember"
-                  style={{ width: "" }}
                 />
                 <label style={{ fontSize: "17px" }} htmlFor="remember">
                   تذكرني
@@ -282,6 +233,8 @@ const Login = () => {
                   هل نسيت كلمة المرور؟
                 </Link>
               </div>
+
+              {/* Submit Button */}
               <button
                 style={styles.btnn}
                 className="btn text-center mt-0"
@@ -290,20 +243,15 @@ const Login = () => {
               >
                 {loading ? "جارٍ تسجيل الدخول..." : "تسجيل الدخول"}
               </button>
-              <small style={{ fontSize: "17px" }} className="">
+
+              {/* Register Link */}
+              <small style={{ fontSize: "17px" }}>
                 ليس لديك حساب؟
                 <Link to="/register" style={{ marginLeft: "6px" }}>
                   تسجيل
                 </Link>
               </small>
             </div>
-            <Box
-              component="form"
-              sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
-              noValidate
-              autoComplete="off"
-            >
-            </Box>
           </form>
         </div>
       </div>
