@@ -228,7 +228,7 @@ const Login = () => {
                     fontSize: "17px",
                     marginLeft: "20px",
                   }}
-                  to={"/forgotpassword"}
+                  to={"/forgetPassword"}
                 >
                   هل نسيت كلمة المرور؟
                 </Link>

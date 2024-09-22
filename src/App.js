@@ -28,9 +28,12 @@ function App() {
 
   useEffect(() => {
     if (token) {
-      navigate("/"); // الانتقال إلى الصفحة الرئيسية مباشرة إذا كان هناك توكن
+      navigate("/"); // Redirect to home if token exists
     } else {
-      navigate("/login"); // الانتقال إلى صفحة تسجيل الدخول إذا لم يكن هناك توكن
+      // Navigate only if not on login/register/forget password
+      if (window.location.pathname !== '/login' && window.location.pathname !== '/register' && window.location.pathname !== '/forgetPassword') {
+        navigate("/login");
+      }
     }
   }, [token, navigate]);
 
@@ -56,8 +59,8 @@ function App() {
         <Route path="/messenger" element={<Messenger />} />
         <Route path="/marketPlace" element={<Marketplace />} />
         <Route path="/addAnotherAccount" element={<AddAnotherAccount />} />
-        <Route path="/forgetPassword" element={<ForgetPassword />} />
         <Route path="/storiesPage" element={<StoriesPage />} />
+        <Route path="/forgetPassword" element={<ForgetPassword />} />
       </Routes>
     </div>
   );
