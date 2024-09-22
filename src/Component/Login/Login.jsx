@@ -115,7 +115,7 @@ const Login = () => {
           Swal.showLoading();
         }
       }).then(() => {
-        // navigate("/");
+        navigate("/");
       });
     }
   }, [token, navigate]);
@@ -144,7 +144,7 @@ const Login = () => {
         backdrop: 'rgba(0,123,255,0.4) left top no-repeat',
       }).then((result) => {
         if (result.isDenied) {
-          navigate('/forgotpassword');
+          navigate('/forgetPassword');
         }
       });
     }
