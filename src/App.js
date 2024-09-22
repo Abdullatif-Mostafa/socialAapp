@@ -39,7 +39,7 @@ function App() {
 
   return (
     <div>
-      {!token &&
+      {token &&
       <>
       <Header />
       <Routes>
