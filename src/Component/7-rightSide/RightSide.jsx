@@ -11,8 +11,8 @@ const RightSidebar = () => {
   useEffect(()=>{
     const User=JSON.parse(localStorage.getItem("user"))
     setUser(User)
-   },[user])
-  console.log("user ",user);
+   },[])
+  // console.log("user ",user);
   // const users = [
   //   { id: 1, name: 'عبدالله سعيد' },
   //   { id: 2, name: 'ريم عادل' },

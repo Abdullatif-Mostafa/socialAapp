@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Flex,
@@ -20,7 +20,12 @@ const CreatePost = () => {
   const textColor = useColorModeValue('gray.800', 'whiteAlpha.900');
   const borderColor = useColorModeValue('gray.300', 'gray.700');
   const toast = useToast(); // Initialize the toast
-  const user=localStorage.getItem("user")
+  // const user=localStorage.getItem("user")
+  const [user,setUser]=useState()
+  useEffect(()=>{
+    const User=JSON.parse(localStorage.getItem("user"))
+    setUser(User)
+   },[])
 
   // Handle image upload
   const handleImageUpload = (e) => {

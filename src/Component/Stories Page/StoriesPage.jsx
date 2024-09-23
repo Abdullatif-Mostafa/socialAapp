@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Flex,
@@ -41,7 +41,12 @@ const stories = [
 
 const StoriesPage = () => {
   const [selectedStoryIndex, setSelectedStoryIndex] = useState(null);
-  const user=localStorage.getItem("user")
+//   const user=localStorage.getItem("user")
+  const [user,setUser]=useState()
+  useEffect(()=>{
+    const User=JSON.parse(localStorage.getItem("user"))
+    setUser(User)
+   },[])
 
   const storyWidth = useBreakpointValue({ base: "100px", md: "140px" });
   const storyHeight = useBreakpointValue({ base: "180px", md: "240px" });

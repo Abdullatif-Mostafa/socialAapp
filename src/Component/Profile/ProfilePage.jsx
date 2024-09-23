@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Avatar,
@@ -139,7 +139,6 @@ const formatTimestamp = (timestamp) => {
     // If it's within the last 24 hours, display "X minutes/hours ago"
     const now = new Date();
     const timeDifference = now - date;
-
     // Less than a day ago
     if (timeDifference < 24 * 60 * 60 * 1000) {
       let relativeTime = formatDistanceToNow(date, { locale: ar, addSuffix: true });
@@ -165,7 +164,12 @@ const formatTimestamp = (timestamp) => {
   
 
 export default function EnhancedProfilePage() {
-  const user=localStorage.getItem("user")
+  const [user,setUser]=useState()
+  useEffect(()=>{
+    const User=JSON.parse(localStorage.getItem("user"))
+    setUser(User)
+   },[])
+  // const user=localStorage.getItem("user")
   return (
     <Box maxW="1000px" mx="auto" py={6}>
       {/* Cover Photo */}
