@@ -23,7 +23,7 @@ import { useEffect } from 'react';
 import ReelsPage from './Component/RealsPage/RealsPage';
 
 function App() {
-  localStorage.setItem("token","155589|VQEXjQLKVSseupN27NVOahjr8ItsUsOyrbSvGL0a")
+  // localStorage.setItem("token","155589|VQEXjQLKVSseupN27NVOahjr8ItsUsOyrbSvGL0a")
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
