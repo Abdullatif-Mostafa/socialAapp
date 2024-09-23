@@ -8,6 +8,7 @@ import { Avatar } from '@chakra-ui/react';
 
 const RightSidebar = () => {
   const user=localStorage.getItem("user")
+  console.log("user ",user);
   // const users = [
   //   { id: 1, name: 'عبدالله سعيد' },
   //   { id: 2, name: 'ريم عادل' },
