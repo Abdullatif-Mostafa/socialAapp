@@ -42,9 +42,8 @@ const handlePostSubmit = async () => {
       if (image) {
         formData.append('image', image);  // Append image file
       }
-
       try {
-        const response = await axios.post('https://your-server-url.com/posts',
+        const response = await axios.post('https://tarmeezacademy.com/api/v1/posts',
          formData, {
           headers: {
             'Content-Type': 'multipart/form-data',

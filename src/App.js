@@ -49,7 +49,7 @@ function App() {
 
         {/* Protected Routes */}
         {token && (
-          <>
+        <Routes>
             <Route path="/" element={<Hero />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/projects" element={<Projects />} />
@@ -67,7 +67,7 @@ function App() {
             <Route path="/marketPlace" element={<Marketplace />} />
             <Route path="/addAnotherAccount" element={<AddAnotherAccount />} />
             <Route path="/storiesPage" element={<StoriesPage />} />
-          </>
+            </Routes>
         )}
       </Routes>
     </div>
