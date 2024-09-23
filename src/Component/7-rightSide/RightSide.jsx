@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { FaBell, FaCog, FaCogs, FaFacebookMessenger, FaUser, FaUserCircle } from 'react-icons/fa';
 import { FaBookmark, FaFilm, FaUserFriends, FaNewspaper, FaClock, FaEnvelope, FaAd } from 'react-icons/fa';
@@ -7,7 +7,11 @@ import { Link } from 'react-router-dom';
 import { Avatar } from '@chakra-ui/react';
 
 const RightSidebar = () => {
-  const user=localStorage.getItem("user")
+  const [user,setUser]=useState()
+  useEffect(()=>{
+    const User=JSON.parse(localStorage.getItem("user"))
+    setUser(User)
+   },[user])
   console.log("user ",user);
   // const users = [
   //   { id: 1, name: 'عبدالله سعيد' },
