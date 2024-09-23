@@ -41,6 +41,7 @@ const stories = [
 
 const StoriesPage = () => {
   const [selectedStoryIndex, setSelectedStoryIndex] = useState(null);
+  const user=localStorage.getItem("user")
 
   const storyWidth = useBreakpointValue({ base: "100px", md: "140px" });
   const storyHeight = useBreakpointValue({ base: "180px", md: "240px" });
@@ -80,7 +81,7 @@ const StoriesPage = () => {
           textAlign="center"
         >
           <Box p={4} textAlign="center" bg={""} color="#3b5998">
-            <Avatar size="md" mb={3} />
+            <Avatar size="md" src={user?.profile_image} mb={3} />
             <Text fontSize="sm" fontWeight="bold">
               أنشئ قصة
             </Text>

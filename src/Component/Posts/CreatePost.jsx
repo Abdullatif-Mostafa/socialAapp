@@ -20,6 +20,7 @@ const CreatePost = () => {
   const textColor = useColorModeValue('gray.800', 'whiteAlpha.900');
   const borderColor = useColorModeValue('gray.300', 'gray.700');
   const toast = useToast(); // Initialize the toast
+  const user=localStorage.getItem("user")
 
   // Handle image upload
   const handleImageUpload = (e) => {
@@ -67,8 +68,9 @@ const CreatePost = () => {
           title: "Post Created",
           description: "Your post has been created successfully.",
           status: "success",
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
+          position:"top"
         });
 
         // Reset state after successful post creation
@@ -79,11 +81,12 @@ const CreatePost = () => {
 
         // Show error toast
         toast({
-          title: "Error",
+          // title: "Error",
           description: error.message,
           status: "error",
-          duration: 5000,
-          isClosable: true,
+          duration: 2000,
+          // isClosable: true,
+          position:"bottom"
         });
       }
     }
@@ -100,7 +103,7 @@ const CreatePost = () => {
       zIndex="999"
     >
       <Flex align="center" mb={4} maxW="600px" mx="auto" cursor={'pointer'}>
-        <Avatar src="https://bit.ly/broken-link" size="md" mr={4} me={1} />
+        <Avatar src={user?.profile_image || "https://bit.ly/broken-link"} size="md" mr={4} me={1} />
         <Input
           placeholder="ماذا يخطر ببالك؟"
           variant="outline"

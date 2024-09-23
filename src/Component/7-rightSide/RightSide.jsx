@@ -4,16 +4,22 @@ import { FaBell, FaCog, FaCogs, FaFacebookMessenger, FaUser, FaUserCircle } from
 import { FaBookmark, FaFilm, FaUserFriends, FaNewspaper, FaClock, FaEnvelope, FaAd } from 'react-icons/fa';
 import './right.css'; // Custom CSS for advanced sidebar
 import { Link } from 'react-router-dom';
+import { Avatar } from '@chakra-ui/react';
 
 const RightSidebar = () => {
-  const users = [
-    { id: 1, name: 'عبدالله سعيد' },
-    { id: 2, name: 'ريم عادل' },
-    { id: 3, name: 'يوسف أحمد' },
-    { id: 4, name: 'نادية مصطفى' }
-  ];const groups = [
-
-    {id:9,name:" محمد علي",icon:<FaUser/>,path:"/profile"},
+  const user=localStorage.getItem("user")
+  // const users = [
+  //   { id: 1, name: 'عبدالله سعيد' },
+  //   { id: 2, name: 'ريم عادل' },
+  //   { id: 3, name: 'يوسف أحمد' },
+  //   { id: 4, name: 'نادية مصطفى' }
+  // ];
+  const username=user?.name || "احمد علي" 
+  console.log("name ",username);
+  
+  const groups = [
+    {id:9,name: username ,icon:<Avatar className='avatar' cursor={"pointer"} name={user?.author.name} src={user?.profile_image} />
+    ,path:"/profile"},
     { id: 3, name: 'الأصدقاء', icon: <FaUserFriends />,path:"/friendspage" },
     { id: 1, name: 'العناصر المحفوظة', icon: <FaBookmark />,path:"/savedItems" },
     { id: 6, name: 'الرسائل', icon: <FaFacebookMessenger />,path:"/messages" },
