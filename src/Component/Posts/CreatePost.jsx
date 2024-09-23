@@ -28,32 +28,43 @@ const CreatePost = () => {
       setImage(file); // Set the raw file
     }
   };
-// console.log("image ",image)
-  // Handle post submit
   const handlePostSubmit = async () => {
+    let myHeaders = new Headers();
+    myHeaders.append("Accept", "application/json");
+    myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`)
     if (postText || image) {
-      const formData = new FormData();
-      formData.append('text', postText);
+      // Prepare the form data
+      let formData = new FormData();
+      formData.append('body', postText);
       if (image) {
-        formData.append('image', image);  // Append image file
+        formData.append('image', image);  // Append the image file
       }
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formData,
+        redirect: 'follow'
+      };
       try {
-        const response = await axios.post('https://tarmeezacademy.com/api/v1/posts',
-         formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-        console.log('Post created successfully', response.data);
+        // Make the POST request using fetch
+        const response = await fetch('https://tarmeezacademy.com/api/v1/posts', requestOptions)
+        // Check if the request was successful
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('Post created successfully:', data);
+
+        // Reset state after successful post creation
         setPostText('');
         setImage(null);
       } catch (error) {
-        console.error('Error creating post', error);
+        console.error('Error creating post:', error.message);
       }
     }
   };
-  
+
 
   return (
     <Box
