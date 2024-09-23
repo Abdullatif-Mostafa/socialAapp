@@ -31,7 +31,11 @@ function App() {
       navigate("/"); // Redirect to home if token exists
     } else {
       // Navigate only if not on login/register/forget password
-      if (window.location.pathname !== '/login' && window.location.pathname !== '/register' && window.location.pathname !== '/forgetPassword') {
+      if (
+        window.location.pathname !== '/login' &&
+        window.location.pathname !== '/register' &&
+        window.location.pathname !== '/forgetPassword'
+      ) {
         navigate("/login");
       }
     }
@@ -40,7 +44,7 @@ function App() {
   return (
     <div>
       {token && <Header />}
-      
+
       <Routes>
         {/* Public Routes */}
         <Route path="/login" element={<Login />} />
@@ -48,8 +52,8 @@ function App() {
         <Route path="/forgetPassword" element={<ForgetPassword />} />
 
         {/* Protected Routes */}
-        {token && (
-        <Routes>
+        {token ? (
+          <>
             <Route path="/" element={<Hero />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/projects" element={<Projects />} />
@@ -67,8 +71,8 @@ function App() {
             <Route path="/marketPlace" element={<Marketplace />} />
             <Route path="/addAnotherAccount" element={<AddAnotherAccount />} />
             <Route path="/storiesPage" element={<StoriesPage />} />
-            </Routes>
-        )}
+          </>
+        ) : null}
       </Routes>
     </div>
   );
