@@ -18,7 +18,7 @@ const RightSidebar = () => {
   console.log("name ",username);
   
   const groups = [
-    {id:9,name: username ,icon:<Avatar className='avatar' cursor={"pointer"} name={user?.author.name} src={user?.profile_image} />
+    {id:9,name: username ,icon:<Avatar className='avatar' cursor={"pointer"} name={user?.name} src={user?.profile_image} />
     ,path:"/profile"},
     { id: 3, name: 'الأصدقاء', icon: <FaUserFriends />,path:"/friendspage" },
     { id: 1, name: 'العناصر المحفوظة', icon: <FaBookmark />,path:"/savedItems" },
