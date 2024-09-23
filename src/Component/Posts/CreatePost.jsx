@@ -28,26 +28,23 @@ const CreatePost = () => {
       setImage(file); // Set the raw file
     }
   };
-
+// console.log("image ",image)
   // Handle post submit
   const handlePostSubmit = async () => {
     if (postText || image) {
       const formData = new FormData();
       formData.append('text', postText);
       if (image) {
-        formData.append('image', image); // Append the raw image file
+        formData.append('image', image);  // Append image file
       }
-
       try {
         const response = await axios.post('https://tarmeezacademy.com/api/v1/posts',
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            },
-          }
-        );
+         formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
         console.log('Post created successfully', response.data);
         setPostText('');
         setImage(null);
@@ -56,6 +53,7 @@ const CreatePost = () => {
       }
     }
   };
+  
 
   return (
     <Box
