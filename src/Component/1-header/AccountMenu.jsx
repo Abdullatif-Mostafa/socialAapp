@@ -66,7 +66,7 @@ export default function AccountMenu() {
                 الإعدادات
               </MenuItem>
           </Link>
-          <MenuItem onClick={dispatch(logout())} fontSize={"18px"} icon={<FiLogOut />} color="black" _hover={{ bg: 'gray.100' }}>
+          <MenuItem onClick={dispatch(logout)} fontSize={"18px"} icon={<FiLogOut />} color="black" _hover={{ bg: 'gray.100' }}>
             تسجيل الخروج
           </MenuItem>
         </MenuList>
