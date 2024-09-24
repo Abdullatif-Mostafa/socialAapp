@@ -15,8 +15,11 @@ import { FiLogOut } from 'react-icons/fi';
 import { FaUserCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import "./header.css"
+import { useDispatch } from 'react-redux';
+import { logout } from '../../RTK/Slices/AuthSlice';
 
 export default function AccountMenu() {
+  const dispatch =useDispatch()
   return (
     <Box className='AccountMenu' display="flex" alignItems="center" textAlign="center">
       <Menu>
@@ -63,7 +66,7 @@ export default function AccountMenu() {
                 الإعدادات
               </MenuItem>
           </Link>
-          <MenuItem fontSize={"18px"} icon={<FiLogOut />} color="black" _hover={{ bg: 'gray.100' }}>
+          <MenuItem onClick={dispatch(logout())} fontSize={"18px"} icon={<FiLogOut />} color="black" _hover={{ bg: 'gray.100' }}>
             تسجيل الخروج
           </MenuItem>
         </MenuList>

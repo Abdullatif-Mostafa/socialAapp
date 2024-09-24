@@ -188,8 +188,8 @@ export default function EnhancedProfilePage() {
       {/* User Info and Actions */}
       <Flex justify="space-between" mt={6} alignItems="center">
         <Box ml={4}>
-          <Text fontSize="2xl" fontWeight="bold" color={"gray.700"} > {user?.name} || محمد علي</Text>
-          <Text color="gray.500">@{user?.name} || mohamed_ali</Text>
+          <Text fontSize="2xl" fontWeight="bold" color={"gray.700"} > {user?.name}</Text>
+          <Text color="gray.500">@{user?.name}</Text>
         </Box>
         <Button  style={{backgroundColor:"#3b5998",color:"#fff",fontSize:"1rem"}} size="sm" mr={4}>
           تعديل الملف الشخصي
