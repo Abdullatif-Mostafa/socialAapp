@@ -17,10 +17,10 @@ export const registerUser = createAsyncThunk('auth/registerUser', async (userInf
     myHeaders.append("Content-Type", "application/json");
  
   var body={
-    username:username,
+    username:email,
     password:password,
     name:name,
-    email:email
+    email:username
   }
   console.log("body ",body)
  

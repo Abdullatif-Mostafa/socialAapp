@@ -147,7 +147,7 @@ const Register = () => {
       Swal.fire({
         title: "فشل التسجيل",
         text: error.message || "حدث خطأ أثناء التسجيل.",
-        icon: "error",
+        // icon: "error",
         confirmButtonText: "حاول مرة أخرى",
         showClass: {
           popup: "animate__animated animate__fadeInDown",
