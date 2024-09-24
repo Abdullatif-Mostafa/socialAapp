@@ -3,28 +3,45 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 // Register User
 export const registerUser = createAsyncThunk('auth/registerUser', async (userInfo) => {
   const { username, email, name, password } = userInfo;
+  console.log("uerInfo ",userInfo)
 
   // Using FormData for file uploads or complex form submissions
-  var formdata = new FormData();
-  formdata.append("username", username);
-  formdata.append("password", password);
-  formdata.append("name", name);
-  formdata.append("email", email);
-
-  var requestOptions = {
-    method: 'POST',
-    body: formdata, // No need to manually set headers for FormData
-  };
-
+  // var formdata = new FormData();
+  // formdata.append("username", username);
+  // formdata.append("password", password);
+  // formdata.append("name", name);
+  // formdata.append("email", email);
+  // console.log("formData ",formdata)
+  var myHeaders = new Headers();
+    myHeaders.append("Accept", "application/json");
+    myHeaders.append("Content-Type", "application/json");
+ 
+  var body={
+    username:username,
+    password:password,
+    name:name,
+    email:email
+  }
+  console.log("body ",body)
+ 
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: JSON.stringify(body), // Stringify the body like the first code
+      redirect: 'follow' // Same behavior as the first code
+    };
+    console.log("body ",requestOptions.body)
   try {
     const response = await fetch("https://tarmeezacademy.com/api/v1/register", requestOptions);
-
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.message || 'Registration failed');
     }
-
     const data = await response.json();
+    console.log("data ",data)
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
+    localStorage.setItem('userId', data.user.id);
     return data; // Return data to Redux
   } catch (error) {
     console.error('Error:', error.message);
