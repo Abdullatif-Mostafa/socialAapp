@@ -29,7 +29,7 @@ function App() {
 
   useEffect(() => {
     if (token) {
-      navigate("/"); // Redirect to home if token exists
+      // navigate("/"); // Redirect to home if token exists
     } else {
       // Navigate only if not on login/register/forget password
       if (

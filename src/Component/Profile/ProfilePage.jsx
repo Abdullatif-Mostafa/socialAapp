@@ -174,9 +174,9 @@ export default function EnhancedProfilePage() {
     <Box maxW="1000px" mx="auto" py={6}>
       {/* Cover Photo */}
       <Box position="relative">
-        <Image src={user.profile_image ||'https://bit.ly/code-beast'} width={"100%"} height={"400px"} />
+        <Image src={user?.profile_image ||'https://bit.ly/code-beast'} width={"100%"} height={"400px"} />
         <Avatar
-          src={user.profile_image ||'https://bit.ly/code-beast'}
+          src={user?.profile_image ||'https://bit.ly/code-beast'}
           size="2xl"
           position="absolute"
           bottom="-50px"
@@ -188,8 +188,8 @@ export default function EnhancedProfilePage() {
       {/* User Info and Actions */}
       <Flex justify="space-between" mt={6} alignItems="center">
         <Box ml={4}>
-          <Text fontSize="2xl" fontWeight="bold" color={"gray.700"} > {user.name} || محمد علي</Text>
-          <Text color="gray.500">@  {user.name} || mohamed_ali</Text>
+          <Text fontSize="2xl" fontWeight="bold" color={"gray.700"} > {user?.name} || محمد علي</Text>
+          <Text color="gray.500">@{user?.name} || mohamed_ali</Text>
         </Box>
         <Button  style={{backgroundColor:"#3b5998",color:"#fff",fontSize:"1rem"}} size="sm" mr={4}>
           تعديل الملف الشخصي
