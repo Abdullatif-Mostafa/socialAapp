@@ -23,17 +23,20 @@ import { FaList, FaUserFriends, FaFacebookMessenger, FaRegSave } from 'react-ico
 import { MdPostAdd, MdOutlineOndemandVideo, MdAddPhotoAlternate } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
 import './header.css';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../RTK/Slices/AuthSlice';
 
 export default function FacebookMenu() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
+  const dispatch=useDispatch()
   const navigate = useNavigate();
 
   // Handle Logout Functionality
   const handleLogout = () => {
-    // Perform logout logic here (e.g., clear tokens, update redux state)
-    onClose();  // Close the alert dialog
-    navigate('/login');  // Redirect to login after logout
+    dispatch(logout());
+    onClose();
+    navigate('/login') // Close the dialog after logout
   };
 
   return (
