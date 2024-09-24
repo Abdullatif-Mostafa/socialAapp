@@ -68,7 +68,7 @@ function App() {
             <Route path="/adsPage" element={<AdsPage />} />
             <Route path="/settingsPage" element={<SettingsPage />} />
             <Route path="/createPost" element={<CreatePost />} />
-            <Route path="/messenger" element={<Messenger />} />
+            <Route path="/Messenger" element={<Messenger />} />
             <Route path="/marketPlace" element={<Marketplace />} />
             <Route path="/addAnotherAccount" element={<AddAnotherAccount />} />
             <Route path="/storiesPage" element={<StoriesPage />} />

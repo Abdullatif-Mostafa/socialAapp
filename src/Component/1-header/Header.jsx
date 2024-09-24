@@ -43,7 +43,7 @@ function Header() {
               </div>
             </Tooltip>
         </Link>
-        <Link to="/Messanger">
+        <Link to="/Messenger">
           <Tooltip label="messenger "className="custom-tooltip" aria-label="A tooltip">
             <div className="nav-icon ">
             <FaFacebookMessenger />
