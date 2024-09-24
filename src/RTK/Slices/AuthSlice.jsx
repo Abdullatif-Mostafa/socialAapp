@@ -20,7 +20,7 @@ export const registerUser = createAsyncThunk('auth/registerUser', async (userInf
     username:email,
     password:password,
     name:name,
-    email:username
+    email:email
   }
   console.log("body ",body)
  
