@@ -70,11 +70,15 @@ function PostDetails() {
   const handleSubmitComment = () => {
     setLoadingComment(true);
 
+    // Get token from localStorage (or any other method you're using to store it)
+    const token = localStorage.getItem('token');
+
     const requestOptions = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        Authorization: `Bearer ${token}`, // Add the token in Authorization header
       },
       body: JSON.stringify({
         body: newComment,
