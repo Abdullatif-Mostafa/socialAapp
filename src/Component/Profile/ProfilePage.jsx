@@ -67,6 +67,7 @@ export default function EnhancedProfilePage() {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     setUser(storedUser);
   }, []);
+console.console.log(("user" ,user));
 
   // Fetch posts from the API
   useEffect(() => {
@@ -75,7 +76,7 @@ export default function EnhancedProfilePage() {
       redirect: 'follow',
     };
 
-    fetch(`https://tarmeezacademy.com/api/v1/posts/${user.id}`, requestOptions)
+    fetch(`https://tarmeezacademy.com/api/v1/posts/${user?.id}`, requestOptions)
       .then(response => response.json())
       .then(result => {
         setPosts([result.data]);  // Assuming the API returns a single post in `result.data`
