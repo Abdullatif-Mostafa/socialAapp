@@ -39,7 +39,6 @@ const formatTimestamp = (timestamp) => {
   const date = new Date(timestamp);
   const now = new Date();
   const timeDifference = now - date;
-
   if (timeDifference < 24 * 60 * 60 * 1000) {
     let relativeTime = formatDistanceToNow(date, { locale: ar, addSuffix: true });
     relativeTime = relativeTime
@@ -53,30 +52,25 @@ const formatTimestamp = (timestamp) => {
       .replace(/\s*يوم\s*/g, 'ي');
     return relativeTime.trim(); 
   }
-
   return format(date, "d MMMM, h:mm a", { locale: ar });
 };
-
 export default function EnhancedProfilePage() {
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-
   // Fetch user data from localStorage
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     setUser(storedUser);
   }, []);
 // console.console.log(("user" ,user));
-
   // Fetch posts from the API
   useEffect(() => {
     const requestOptions = {
       method: 'GET',
       redirect: 'follow',
     };
-
-    fetch('https://tarmeezacademy.com/api/v1/posts/16354', requestOptions)
+    fetch('https://tarmeezacademy.com/api/v1/posts/1', requestOptions)
       .then(response => response.json())
       .then(result => {
         setPosts([result.data]);  // Assuming the API returns a single post in `result.data`
