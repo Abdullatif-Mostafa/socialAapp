@@ -32,6 +32,7 @@ import RightSidebar from './../7-rightSide/RightSide';
 import LeftSidebar from './../8-leftSide/LeftSide';
 import SharePost from './SharePost';
 import StoriesPage from '../Stories Page/StoriesPage';
+import { Link } from 'react-router-dom';
 
 function Hero() {
   const [page, setPage] = useState(1);
@@ -154,7 +155,8 @@ function Hero() {
           {/* Show posts or loading spinner */}
           {posts && posts.length > 0 ? (
             posts.map((post) => (
-              <div key={post.id} className=''>
+              <div key={post.id} className='' style={{cursor:"pointer"}}>
+               <Link to={`posts/${post.id}`}>
                 <Card flexGrow={1} maxW='' mb="2">
                   <CardHeader w={"100%"} bgColor={""}>
                     <div className='flexContainer' style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
@@ -191,6 +193,7 @@ function Hero() {
 
                   </CardFooter>
                 </Card>
+               </Link>
               </div>
             ))
           ) : (

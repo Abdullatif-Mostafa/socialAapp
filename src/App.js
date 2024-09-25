@@ -21,6 +21,7 @@ import ForgetPassword from './Component/Forget Password/ForgetPassword';
 import StoriesPage from './Component/Stories Page/StoriesPage';
 import { useEffect } from 'react';
 import ReelsPage from './Component/RealsPage/RealsPage';
+import PostDetails from './Component/Post Details/PostDetails';
 
 function App() {
   // localStorage.setItem("token","155589|VQEXjQLKVSseupN27NVOahjr8ItsUsOyrbSvGL0a")
@@ -72,6 +73,7 @@ function App() {
             <Route path="/marketPlace" element={<Marketplace />} />
             <Route path="/addAnotherAccount" element={<AddAnotherAccount />} />
             <Route path="/storiesPage" element={<StoriesPage />} />
+            <Route path='posts/:postId' element={<PostDetails/>}/>
           </>
         ) : null}
       </Routes>
