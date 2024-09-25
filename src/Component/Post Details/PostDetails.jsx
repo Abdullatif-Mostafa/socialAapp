@@ -56,15 +56,29 @@ function PostDetails() {
 
   // Format timestamp to Arabic with relative time
   const formatTimestamp = (timestamp) => {
+    console.log("Received timestamp:", timestamp); // Log the timestamp for debugging
+  
     const date = new Date(timestamp);
+    
+    // Check if date is valid
+    if (isNaN(date.getTime())) {
+      console.error("Invalid date format:", timestamp);
+      return "Invalid date"; // Return an error message if the date is invalid
+    }
+  
     const now = new Date();
     const timeDifference = now - date;
+  
     if (timeDifference < 24 * 60 * 60 * 1000) {
+      // If time difference is less than a day, use relative time
       let relativeTime = formatDistanceToNow(date, { locale: ar, addSuffix: true });
       return relativeTime;
     }
+  
+    // Return a formatted date if it's older than a day
     return format(date, 'd MMMM, h:mm a', { locale: ar });
   };
+  
 
   // Handle comment submission
   const handleSubmitComment = () => {
@@ -188,14 +202,14 @@ function PostDetails() {
                 {comments.length > 0 ? (
                   <VStack spacing={4} align='stretch'>
                     {comments.map((comment) => (
-                      <Box key={comment.id} display='flex' alignItems='flex-start' p={3} borderWidth={1} borderRadius='lg'>
-                        <Avatar size='sm' name={comment.author.name} src={comment.author.profile_image} mr={3} />
+                      <Box key={comment.id} display='flex' alignItems='flex-start' p={2} borderWidth={1} borderRadius='lg'>
+                        <Avatar size='sm' name={comment.author.name} me={2} src={comment.author.profile_image} mr={2} />
                         <Box>
-                          <Text fontWeight='bold'>{comment.author.name}</Text>
-                          <Text>{comment.body}</Text>
+                          <Text fontWeight='bold'mb={0} me={2} >  {comment.author.name}</Text>
                           <Text fontSize='xs' color='gray.500'>
                             {formatTimestamp(comment.author.created_at)}
                           </Text>
+                          <Text>{comment.body}</Text>
                         </Box>
                       </Box>
                     ))}
