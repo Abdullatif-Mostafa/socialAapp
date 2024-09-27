@@ -152,8 +152,8 @@ function PostDetails() {
                     </Text>
                   </div>
                 </div>
-                <div>
-                  <PostActions postUri={post.uri} />
+                <div >
+                  <PostActions postUri={post.uri}  />
                 </div>
               </div>
             </CardHeader>

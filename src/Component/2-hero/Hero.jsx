@@ -156,9 +156,9 @@ function Hero() {
           {posts && posts.length > 0 ? (
             posts.map((post) => (
               <div key={post.id} className='' style={{cursor:"pointer"}}>
-               <Link to={`posts/${post.id}`}>
                 <Card flexGrow={1} maxW='' mb="2">
                   <CardHeader w={"100%"} bgColor={""}>
+
                     <div className='flexContainer' style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
                       <div style={{ display: "flex", justifyContent: "", gap: "6px" }}>
                         <Avatar className='avatar' cursor={"pointer"} name={post.author.name} src={post.author.profile_image} />
@@ -174,12 +174,14 @@ function Hero() {
                       </div>
                     </div>
                   </CardHeader>
+                    <Link to={`posts/${post.id}`}>
                   <CardBody className='cardBody'>
                     <Text>{post.body}</Text>
                   </CardBody>
                   {post.image && (
                     <Image objectFit='cover' src={post.image} alt='Post image' />
                   )}
+                  </Link>
                   <CardFooter justify='space-between' flexWrap='wrap'>
                     <Button flex='1' variant='ghost' leftIcon={<BiLike />}>
                       أعجبني
@@ -193,7 +195,7 @@ function Hero() {
 
                   </CardFooter>
                 </Card>
-               </Link>
+               {/* </Link> */}
               </div>
             ))
           ) : (

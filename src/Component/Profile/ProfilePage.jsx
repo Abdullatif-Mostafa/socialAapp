@@ -70,6 +70,7 @@ export default function EnhancedProfilePage() {
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     setUser(storedUser);
+    console.log("user ",user)
   }, []);
 
   // Fetch all posts and filter by the authenticated user's ID
@@ -90,19 +91,20 @@ export default function EnhancedProfilePage() {
         // Fetch all posts from the API
         const response = await fetch('https://tarmeezacademy.com/api/v1/posts', requestOptions);
         const result = await response.json();
+        console.log("response ",response)
 
-        let allPosts = [];
-
+        // let allPosts = [];
+setPosts(result)
         // Check if result.data is an array or a single object
-        if (Array.isArray(result.data)) {
-          allPosts = result.data;
-        } else if (result.data) {
-          allPosts = [result.data];
-        }
+        // if (Array.isArray(result.data)) {
+        //   allPosts = result.data;
+        // } else if (result.data) {
+        //   allPosts = [result.data];
+        // }
 
         // Filter posts where the author ID matches the authenticated user's ID
-        const userPosts = allPosts.filter(post => post.author && post.author.id === user.id);
-        setPosts(userPosts);
+        // const userPosts = allPosts.filter(post => post.author && post.author.id === user.id);
+        // setPosts(userPosts);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching posts:', error);
@@ -112,7 +114,8 @@ export default function EnhancedProfilePage() {
 
     fetchAllPosts();
   }, [user]);
-
+  
+  console.log("posts ",posts)
   // Display a loading spinner while fetching data
   if (loading) {
     return (

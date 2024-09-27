@@ -1,21 +1,32 @@
+// PostActions.js
 import React from 'react';
 import {
   Button,
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverArrow,
   PopoverBody,
   Stack,
-  useToast
+  useToast,
+  useDisclosure,
 } from '@chakra-ui/react';
-import { FiSave, FiDownload, FiShare2, FiBellOff, FiEyeOff, FiFlag, FiUserMinus, FiMoreVertical } from 'react-icons/fi';
-import SharePost from './SharePost';  // Import the SharePost component
+import {
+  FiSave,
+  FiDownload,
+  FiBellOff,
+  FiEyeOff,
+  FiFlag,
+  FiUserMinus,
+  FiMoreVertical,
+  FiEdit,
+} from 'react-icons/fi';
+import EditPostModal from '../EditPost/EditPost';
 
-const PostActions = ({ postUri, imageUrl }) => {
+const PostActions = ({ postId, postBody, postUri, imageUrl, onPostUpdate }) => {
   const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-  // Function to handle "Save Post" action
+  // دالة لحفظ المنشور
   const handleSavePost = () => {
     toast({
       title: 'تم حفظ المنشور.',
@@ -27,7 +38,7 @@ const PostActions = ({ postUri, imageUrl }) => {
     });
   };
 
-  // Function to handle "Download Image" action
+  // دالة لتنزيل الصورة
   const handleDownloadImage = () => {
     const link = document.createElement('a');
     link.href = imageUrl;
@@ -46,133 +57,153 @@ const PostActions = ({ postUri, imageUrl }) => {
     });
   };
 
-  const handleEnableNotifications = () => {
-    toast({
-      title: 'تم تشغيل الإشعارات.',
-      description: 'ستتلقى إشعارات حول هذا المنشور.',
-      status: 'info',
-      duration: 1500,
-      isClosable: false,
-      position: 'top',
-    });
-  };
-
-  const handleHidePost = () => {
-    toast({
-      title: 'تم إخفاء المنشور.',
-      description: 'لن تشاهد هذا المنشور بعد الآن.',
-      status: 'warning',
-      duration: 1500,
-      isClosable: false,
-      position: 'top',
-    });
-  };
-
-  const handleReportImage = () => {
-    toast({
-      title: 'تم الإبلاغ عن الصورة.',
-      description: 'تم الإبلاغ عن هذه الصورة للمراجعة.',
-      status: 'error',
-      duration: 1500,
-      isClosable: false,
-      position: 'top',
-    });
-  };
-
-  const handleUnfollow = () => {
-    toast({
-      title: 'تم إلغاء المتابعة.',
-      description: 'لقد قمت بإلغاء متابعة هذا الحساب.',
-      status: 'info',
-      duration: 1500,
-      isClosable: false,
-      position: 'top',
-    });
-  };
-
   return (
-    <Popover>
-      <PopoverTrigger >
-        <Button width={"20px"}  flex={1} justifyContent={"center"} variant='ghost' marginRight={"15px"} alignItems={"center"} leftIcon={<FiMoreVertical />}>
-        </Button>
-      </PopoverTrigger>
+    <>
+      {/* Popover يحتوي على خيارات المنشور */}
+      <Popover>
+        <PopoverTrigger>
+          <Button
+            width="20px"
+            flex={1}
+            justifyContent="center"
+            variant="ghost"
+            marginRight="15px"
+            alignItems="center"
+            leftIcon={<FiMoreVertical />}
+          />
+        </PopoverTrigger>
 
-      <PopoverContent width={"270px"} me={4}>
-        {/* <PopoverArrow /> */}
-        <PopoverBody mr={0}>
-          <Stack spacing={2}>
-            <Button 
-              flex={1} 
-              justifyContent={"flex-start"} 
-              padding={"6px 10px"} 
-              leftIcon={<FiSave />} 
-              variant="ghost"
-              onClick={handleSavePost}
-            >
-              حفظ المنشور
-            </Button>
+        <PopoverContent width="270px" me={4}>
+          <PopoverBody mr={0}>
+            <Stack spacing={2}>
+              <Button
+                flex={1}
+                justifyContent="flex-start"
+                padding="6px 10px"
+                leftIcon={<FiSave />}
+                variant="ghost"
+                onClick={handleSavePost}
+              >
+                حفظ المنشور
+              </Button>
 
-            <Button 
-              flex={1} 
-              justifyContent={"flex-start"} 
-              padding={"6px 10px"} 
-              leftIcon={<FiDownload />} 
-              variant="ghost"
-              onClick={handleDownloadImage}
-            >
-              تنزيل الصورة
-            </Button>
+              <Button
+                flex={1}
+                justifyContent="flex-start"
+                padding="6px 10px"
+                leftIcon={<FiDownload />}
+                variant="ghost"
+                onClick={handleDownloadImage}
+              >
+                تنزيل الصورة
+              </Button>
 
-            {/* Share Post Option */}
-            {/* <SharePost postUri={postUri} />  Use the SharePost component */}
+              {/* زر تعديل المنشور */}
+              <Button
+                flex={1}
+                justifyContent="flex-start"
+                padding="6px 10px"
+                leftIcon={<FiEdit />}
+                variant="ghost"
+                onClick={onOpen} // فتح النافذة لتعديل المنشور
+              >
+                تعديل المنشور
+              </Button>
 
-            <Button  
-              flex={1} 
-              justifyContent={"flex-start"} 
-              padding={"6px 10px"} 
-              leftIcon={<FiBellOff />} 
-              variant="ghost"
-              onClick={handleEnableNotifications}
-            >
-              تشغيل الإشعارات لهذا المنشور
-            </Button>
+              {/* يمكنك إضافة المزيد من الأزرار هنا حسب الحاجة */}
+              <Button
+                flex={1}
+                justifyContent="flex-start"
+                padding="6px 10px"
+                leftIcon={<FiBellOff />}
+                variant="ghost"
+                onClick={() => {
+                  toast({
+                    title: 'تم تشغيل الإشعارات.',
+                    description: 'ستتلقى إشعارات حول هذا المنشور.',
+                    status: 'info',
+                    duration: 1500,
+                    isClosable: false,
+                    position: 'top',
+                  });
+                }}
+              >
+                تشغيل الإشعارات لهذا المنشور
+              </Button>
 
-            <Button  
-              flex={1} 
-              justifyContent={"flex-start"} 
-              padding={"6px 10px"} 
-              leftIcon={<FiEyeOff />} 
-              variant="ghost"
-              onClick={handleHidePost}
-            >
-              إخفاء المنشور
-            </Button>
+              <Button
+                flex={1}
+                justifyContent="flex-start"
+                padding="6px 10px"
+                leftIcon={<FiEyeOff />}
+                variant="ghost"
+                onClick={() => {
+                  toast({
+                    title: 'تم إخفاء المنشور.',
+                    description: 'لن تشاهد هذا المنشور بعد الآن.',
+                    status: 'warning',
+                    duration: 1500,
+                    isClosable: false,
+                    position: 'top',
+                  });
+                }}
+              >
+                إخفاء المنشور
+              </Button>
 
-            <Button  
-              flex={1} 
-              justifyContent={"flex-start"} 
-              padding={"6px 10px"} 
-              leftIcon={<FiFlag />} 
-              variant="ghost"
-              onClick={handleReportImage}
-            >
-              الإبلاغ عن صورة
-            </Button>
+              <Button
+                flex={1}
+                justifyContent="flex-start"
+                padding="6px 10px"
+                leftIcon={<FiFlag />}
+                variant="ghost"
+                onClick={() => {
+                  toast({
+                    title: 'تم الإبلاغ عن الصورة.',
+                    description: 'تم الإبلاغ عن هذه الصورة للمراجعة.',
+                    status: 'error',
+                    duration: 1500,
+                    isClosable: false,
+                    position: 'top',
+                  });
+                }}
+              >
+                الإبلاغ عن صورة
+              </Button>
 
-            <Button  
-              flex={1} 
-              justifyContent={"flex-start"} 
-              padding={"6px 10px"} 
-              leftIcon={<FiUserMinus />} 
-              variant="ghost"
-              onClick={handleUnfollow}
-            >
-              إلغاء المتابعة
-            </Button>
-          </Stack>
-        </PopoverBody>
-      </PopoverContent>
-    </Popover>
+              <Button
+                flex={1}
+                justifyContent="flex-start"
+                padding="6px 10px"
+                leftIcon={<FiUserMinus />}
+                variant="ghost"
+                onClick={() => {
+                  toast({
+                    title: 'تم إلغاء المتابعة.',
+                    description: 'لقد قمت بإلغاء متابعة هذا الحساب.',
+                    status: 'info',
+                    duration: 1500,
+                    isClosable: false,
+                    position: 'top',
+                  });
+                }}
+              >
+                إلغاء المتابعة
+              </Button>
+            </Stack>
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
+
+      {/* مكون نافذة التعديل */}
+      <EditPostModal
+        isOpen={isOpen}
+        onClose={onClose}
+        postId={postId}
+        initialBody={postBody}
+        onUpdate={onPostUpdate} // دالة لتحديث المنشور بعد التعديل
+      />
+    </>
   );
 };
 
