@@ -21,7 +21,7 @@ const EditPostModal = ({ isOpen, onClose, postId, initialBody, onUpdate }) => {
   // تحديث حالة body عند تغيير initialBody
   const fetchingPostDetails= async()=>{
     try {
-    const response = await fetch(`https://tarmeezacademy.com/api/v1/posts/${postId}`, requestOptions);
+    const response = await fetch(`https://tarmeezacademy.com/api/v1/posts/30289`);
     const result = await response.json();
     console.log("result ", result)
     setBody(result.data.body);
