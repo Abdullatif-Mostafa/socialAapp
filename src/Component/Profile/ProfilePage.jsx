@@ -92,7 +92,7 @@ export default function EnhancedProfilePage() {
         const response = await fetch('https://tarmeezacademy.com/api/v1/posts', requestOptions);
         const result = await response.json();
         console.log("response ",response)
-
+        setPosts(result.data);
         // let allPosts = [];
 setPosts(result)
         // Check if result.data is an array or a single object

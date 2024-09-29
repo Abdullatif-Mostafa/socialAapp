@@ -1,9 +1,9 @@
 // EditPostModal.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Button,
   Modal,
-  ModalOverlay,
+  ModalOverlay,   
   ModalContent,
   ModalHeader,
   ModalFooter,
@@ -15,8 +15,24 @@ import {
 
 const EditPostModal = ({ isOpen, onClose, postId, initialBody, onUpdate }) => {
   const toast = useToast();
-  const [body, setBody] = useState();
+  const [body, setBody] = useState(initialBody || ''); // تهيئة الحالة بقيمة initialBody
   const [isLoading, setIsLoading] = useState(false);
+
+  // تحديث حالة body عند تغيير initialBody
+  const fetchingPostDetails= async()=>{
+    try {
+    const response = await fetch(`https://tarmeezacademy.com/api/v1/posts/${postId}`, requestOptions);
+    const result = await response.json();
+    console.log("result ", result)
+    setBody(result.data.body);
+    } catch (error) {
+    console.error('Error fetching posts:', error);
+    }
+  }
+  useEffect(() => {
+    fetchingPostDetails()
+    setBody(initialBody || '');
+  }, [initialBody]);
 
   const handleEditPost = async () => {
     setIsLoading(true);
@@ -44,7 +60,7 @@ const EditPostModal = ({ isOpen, onClose, postId, initialBody, onUpdate }) => {
 
     const raw = JSON.stringify({ body });
     
-    console.log("body ",body)
+    console.log("body ", body)
     const requestOptions = {
       method: 'PUT',
       headers: myHeaders,
@@ -53,9 +69,10 @@ const EditPostModal = ({ isOpen, onClose, postId, initialBody, onUpdate }) => {
     };
 
     try {
-      const response = await fetch(`https://tarmeezacademy.com/api/v1/posts/30289`, requestOptions);
+      const response = await fetch(`https://tarmeezacademy.com/api/v1/posts/${postId}`, requestOptions);
       const result = await response.json();
-console.log("resutl ",result)
+      console.log("result ", result)
+      
       if (response.ok) {
         toast({
           title: 'تم تعديل المنشور.',
@@ -99,7 +116,7 @@ console.log("resutl ",result)
       <ModalContent>
         <ModalHeader>تعديل المنشور</ModalHeader>
         <ModalCloseButton color={"gray.700"} _hover={{color:"white"}} mb={0}/>
-        <ModalBody >
+        <ModalBody>
           <Textarea
             mt={0}
             color={"gray.600"}
