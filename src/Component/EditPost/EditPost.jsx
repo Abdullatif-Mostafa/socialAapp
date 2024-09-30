@@ -23,7 +23,7 @@ const EditPostModal = ({ isOpen, onClose, postId, initialBody, onUpdate }) => {
     try {
     const response = await fetch(`https://tarmeezacademy.com/api/v1/posts/30289`);
     const result = await response.json();
-    console.log("result ", result)
+    // console.log("result ", result)
     setBody(result.data.body);
     } catch (error) {
     console.error('Error fetching posts:', error);

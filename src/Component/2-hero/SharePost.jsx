@@ -13,7 +13,10 @@ import {
 import { FiFacebook, FiTwitter, FiLinkedin, FiCopy, FiMessageCircle } from 'react-icons/fi';
 import { BiShare } from 'react-icons/bi';
 
-const SharePost = ({ postUri }) => {
+const SharePost = (props) => {
+    // console.log("props ",props)
+    const { postUri } = props;
+    // console.log("post url",postUri)
     const toast = useToast();
 
     // Function to handle sharing on social media platforms
@@ -45,7 +48,7 @@ const SharePost = ({ postUri }) => {
 
     // Function to copy the URI and show the toast
     const handleCopy = () => {
-        navigator.clipboard.writeText(postUri);
+        navigator.clipboard.writeText(`https://social-aapp.vercel.app/posts/${postUri}`);
         toast({
             title: 'تم نسخ الرابط.',
             description: 'تم نسخ رابط المنشور إلى الحافظة.',

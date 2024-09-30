@@ -170,7 +170,7 @@ function PostDetails() {
               </Button>
 
               {/* Share button with a popover */}
-              <SharePost postUri={post.uri} />
+              <SharePost postUri={post.id} />
             </CardFooter>
 
             {showComments && (

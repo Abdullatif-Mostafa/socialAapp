@@ -158,7 +158,7 @@ function Hero() {
               <div key={post.id} className='' style={{cursor:"pointer"}}>
                 <Card flexGrow={1} maxW='' mb="2">
                   <CardHeader w={"100%"} bgColor={""}>
-
+                    {/* <h1>{post.id}</h1> */}
                     <div className='flexContainer' style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
                       <div style={{ display: "flex", justifyContent: "", gap: "6px" }}>
                         <Avatar className='avatar' cursor={"pointer"} name={post.author.name} src={post.author.profile_image} />
@@ -191,7 +191,7 @@ function Hero() {
                     </Button>
 
                     {/* Share button with a popover */}
-                    <SharePost postUri={post.uri} />
+                    <SharePost postUri={post.id} />
 
                   </CardFooter>
                 </Card>
