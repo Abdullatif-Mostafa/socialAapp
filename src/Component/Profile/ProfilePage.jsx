@@ -74,55 +74,30 @@ export default function EnhancedProfilePage() {
         console.log("response ",response)
         setUser(result.data);
   }
-  // Fetch user data from localStorage on component mount
+  const fetchAllPosts = async () => {
+    try {
+      // Fetch all posts from the API
+      const response = await fetch(`https://tarmeezacademy.com/api/v1/users/${userId}/posts`);
+      const result = await response.json();
+      console.log("response ",response)
+      setPosts(result);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+      setLoading(false);
+    }
+  };
   useEffect(() => {
     fetchUser();
-    // const storedUser = JSON.parse(localStorage.getItem("user"));
-    // setUser(storedUser);
     console.log("user ",user)
   }, []);
-
-  // Fetch all posts and filter by the authenticated user's ID
   useEffect(() => {
-    // Ensure that user data is available before fetching posts
     if (!user || !user.id) {
       setLoading(false);
       return;
     }
-
-    const requestOptions = {
-      method: 'GET',
-      redirect: 'follow',
-    };
-
-    const fetchAllPosts = async () => {
-      try {
-        // Fetch all posts from the API
-        const response = await fetch(`https://tarmeezacademy.com/api/v1/users/${userId}/posts`);
-        const result = await response.json();
-        console.log("response ",response)
-        setPosts(result.data);
-        // let allPosts = [];
-setPosts(result)
-        // Check if result.data is an array or a single object
-        // if (Array.isArray(result.data)) {
-        //   allPosts = result.data;
-        // } else if (result.data) {
-        //   allPosts = [result.data];
-        // }
-
-        // Filter posts where the author ID matches the authenticated user's ID
-        // const userPosts = allPosts.filter(post => post.author && post.author.id === user.id);
-        // setPosts(userPosts);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-        setLoading(false);
-      }
-    };
-
     fetchAllPosts();
-  }, [user]);
+  }, []);
   
   console.log("posts ",posts)
   // Display a loading spinner while fetching data
@@ -204,7 +179,8 @@ setPosts(result)
             <Box>
               <Text fontWeight="bold" mb={4}>منشوراتك</Text>
               <Box className='hero'>
-                {posts.length > 0 ? (
+               <h1>posts: {posts.map((item)=>(<h1>{item.id}</h1>))} </h1>
+                {posts.length >0 ? (
                   posts.map(post => (
                     <Card key={post.id} maxW='md' mb="4" boxShadow="md">
                       <CardHeader>
