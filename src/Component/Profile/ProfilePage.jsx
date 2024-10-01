@@ -33,6 +33,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import PostActions from '../2-hero/PostActions';
 import SharePost from '../2-hero/SharePost';
 import "../Profile/profile.css"
+import PostCard from '../Posts/Post';
 
 // Helper function to format timestamp
 const formatTimestamp = (timestamp) => {
@@ -194,49 +195,7 @@ const handleNavigate=()=>{
               <Box className='hero'>
                 {posts && posts.length > 0 ? (
                   posts.map((post) => (
-                    <div key={post.id} className='' style={{ cursor: "pointer" }}>
-                      <Card flexGrow={1} maxW='' mb="2">
-                        <CardHeader w={"100%"} bgColor={""}>
-                          {/* <h1>{post.id}</h1> */}
-                          <div className='flexContainer' style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
-                            <Link to={`/profile/${post.author.id}`}>
-                              <div style={{ display: "flex", justifyContent: "", gap: "6px" }}>
-                                <Avatar className='avatar' cursor={"pointer"} name={post.author.name} src={post.author.profile_image} />
-                                <div>
-                                  <Heading cursor={"pointer"} mb='0' size='sm'>{post.author.name}</Heading>
-                                  <Text mb='0' style={{ fontSize: "14px" }} className='text-muted'>
-                                    {formatTimestamp(post.author.created_at)}
-                                  </Text>
-                                </div>
-                              </div>
-                            </Link>
-                            <div>
-                              <PostActions postUri={post.uri} />
-                            </div>
-                          </div>
-                        </CardHeader>
-                          <CardBody className='cardBody' onClick={()=>{navigate(`/posts/${post.id}`)}}>
-                            <Text>{post.body}</Text>
-                          </CardBody>
-                          {post.image && (
-                            <Image objectFit='cover' w={"100%"} src={post.image} alt='Post image' />
-                          )}
-  
-                        <CardFooter justify='space-between' flexWrap='wrap'>
-                          <Button flex='1' variant='ghost' leftIcon={<BiLike />}>
-                            أعجبني
-                          </Button>
-                          <Button flex='1' variant='ghost' leftIcon={<BiChat />}>
-                            تعليق ({post.comments_count})
-                          </Button>
-
-                          {/* Share button with a popover */}
-                          <SharePost postUri={post.id} />
-
-                        </CardFooter>
-                      </Card>
-                      {/* </Link> */}
-                    </div>
+                      <PostCard key={post.id} post={post} />
                   ))
                 ) : (
                   <>

@@ -106,7 +106,7 @@ function PostCard({ post }) {
 
   return (
     <div key={post.id} className='CardBox' style={{ cursor: 'pointer' }}>
-      <Card className='card' flexGrow={1} maxW='500px' mb='2'>
+      <Card className='card' flexGrow={1} maxW='500px' mb='1' p={'0'} mt={'0'}>
         <CardHeader w={'100%'} bgColor={'transparent'}>
           <div className='flexContainer' style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', gap: '6px' }}>
