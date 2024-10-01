@@ -13,7 +13,9 @@ import {
   useToast,
 } from '@chakra-ui/react';
 
-const EditPostModal = ({ isOpen, onClose, postId, initialBody, onUpdate }) => {
+const EditPostModal = (props) => {
+  console.log(" props ",props)
+  const {  isOpen, postId,onClose, initialBody, onUpdate }=props
   const toast = useToast();
   const [body, setBody] = useState(initialBody || ''); // تهيئة الحالة بقيمة initialBody
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +23,7 @@ const EditPostModal = ({ isOpen, onClose, postId, initialBody, onUpdate }) => {
   // تحديث حالة body عند تغيير initialBody
   const fetchingPostDetails= async()=>{
     try {
-    const response = await fetch(`https://tarmeezacademy.com/api/v1/posts/30289`);
+    const response = await fetch(`https://tarmeezacademy.com/api/v1/posts/${postId}`);
     const result = await response.json();
     // console.log("result ", result)
     setBody(result.data.body);

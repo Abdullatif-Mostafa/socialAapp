@@ -1,5 +1,5 @@
 // PostActions.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   Popover,
@@ -22,12 +22,29 @@ import {
 } from 'react-icons/fi';
 import EditPostModal from '../EditPost/EditPost';
 
-const PostActions = ({ postId, postBody, imageUrl, onPostUpdate }) => {
-  
+const PostActions = (props) => {
+  const [user,setUser]=useState()
+  console.log("props ===",props.postUri.author.id)
+  const authorId=props.postUri.author.id;
+  const { id, body, profile_image, onPostUpdate }=props.postUri
+  console.log("id ,body",
+  id,
+  body,
+  profile_image,
+  onPostUpdate
+  )
+  useEffect(()=>{
+    const user=localStorage.getItem("user")
+    console.log("user",user)
+    if(user){
+      const obj=JSON.parse(user)
+      console.log("obj",obj)
+      setUser(obj)
+    }
+  },[])
   // console.log("post ",post)
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   // دالة لحفظ المنشور
   const handleSavePost = () => {
     toast({
@@ -39,11 +56,10 @@ const PostActions = ({ postId, postBody, imageUrl, onPostUpdate }) => {
       position: 'top',
     });
   };
-
   // دالة لتنزيل الصورة
   const handleDownloadImage = () => {
     const link = document.createElement('a');
-    link.href = imageUrl;
+    link.href = profile_image;
     link.download = 'image.jpg';
     document.body.appendChild(link);
     link.click();
@@ -101,7 +117,7 @@ const PostActions = ({ postId, postBody, imageUrl, onPostUpdate }) => {
               </Button>
 
               {/* زر تعديل المنشور */}
-              <Button
+              {authorId===user.id?  <Button
                 flex={1}
                 justifyContent="flex-start"
                 padding="6px 10px"
@@ -111,7 +127,8 @@ const PostActions = ({ postId, postBody, imageUrl, onPostUpdate }) => {
               >
                 تعديل المنشور
               </Button>
-
+:null}
+            
               {/* يمكنك إضافة المزيد من الأزرار هنا حسب الحاجة */}
               <Button
                 flex={1}
@@ -201,8 +218,8 @@ const PostActions = ({ postId, postBody, imageUrl, onPostUpdate }) => {
       <EditPostModal
         isOpen={isOpen}
         onClose={onClose}
-        postId={postId}
-        initialBody={postBody}
+        id={id}
+        initialBody={body}
         onUpdate={onPostUpdate} // دالة لتحديث المنشور بعد التعديل
       />
     </>
