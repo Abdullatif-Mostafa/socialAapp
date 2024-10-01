@@ -10,7 +10,7 @@ const RightSidebar = () => {
   const [user,setUser]=useState()
   useEffect(()=>{
     const user = localStorage.getItem('user');
-    if(!user){
+    if(user){
       const obj = JSON.parse(user);
       setUser(obj)
       // navigate('/login')
