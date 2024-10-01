@@ -1,5 +1,5 @@
 // PostActions.js
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   Button,
   Popover,
@@ -9,6 +9,12 @@ import {
   Stack,
   useToast,
   useDisclosure,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
 } from '@chakra-ui/react';
 import {
   FiSave,
@@ -19,33 +25,52 @@ import {
   FiUserMinus,
   FiMoreVertical,
   FiEdit,
+  FiTrash, // Import FiTrash icon for Delete
 } from 'react-icons/fi';
 import EditPostModal from '../EditPost/EditPost';
+import axios from 'axios';
+import PropTypes from 'prop-types';
 
-const PostActions = (props) => {
-  const [user,setUser]=useState()
-  console.log("props ===",props.postUri.author.id)
-  const authorId=props.postUri.author.id;
-  const { id, body, profile_image, onPostUpdate }=props.postUri
-  console.log("id ,body",
-  id,
-  body,
-  profile_image,
-  onPostUpdate
-  )
-  useEffect(()=>{
-    const user=localStorage.getItem("user")
-    console.log("user",user)
-    if(user){
-      const obj=JSON.parse(user)
-      console.log("obj =================",obj.id)
-      setUser(obj)
-    }
-  },[])
-  console.log("user id ",user)
+const PostActions = ({ postUri, onDelete }) => {
+  const [user, setUser] = useState(null);
   const toast = useToast();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  // دالة لحفظ المنشور
+
+  // Destructure necessary properties from postUri
+  const { id, body, profile_image, author, onPostUpdate } = postUri;
+  const authorId = author.id;
+
+  // Fetch user data from localStorage on component mount
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+      } catch (error) {
+        console.error('Error parsing user data from localStorage:', error);
+      }
+    }
+  }, []);
+
+  // Chakra UI disclosure for EditPostModal
+  const {
+    isOpen: isEditOpen,
+    onOpen: onEditOpen,
+    onClose: onEditClose,
+  } = useDisclosure();
+
+  // Chakra UI disclosure for Delete Confirmation Dialog
+  const {
+    isOpen: isDeleteOpen,
+    onOpen: onDeleteOpen,
+    onClose: onDeleteClose,
+  } = useDisclosure();
+  const cancelRef = useRef();
+
+  // Determine if the current user is the author of the post
+  const isAuthor = user?.id === authorId;
+
+  // Handle Save Post
   const handleSavePost = () => {
     toast({
       title: 'تم حفظ المنشور.',
@@ -56,28 +81,84 @@ const PostActions = (props) => {
       position: 'top',
     });
   };
-  // دالة لتنزيل الصورة
-  const handleDownloadImage = () => {
-    const link = document.createElement('a');
-    link.href = profile_image;
-    link.download = 'image.jpg';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
 
-    toast({
-      title: 'تم تنزيل الصورة.',
-      description: 'تم تنزيل الصورة بنجاح.',
-      status: 'success',
-      duration: 1500,
-      isClosable: false,
-      position: 'top',
-    });
+  // Handle Download Image
+  const handleDownloadImage = () => {
+    if (profile_image && profile_image.url) { // Ensure profile_image has a URL
+      const link = document.createElement('a');
+      link.href = profile_image.url;
+      link.download = 'image.jpg';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      toast({
+        title: 'تم تنزيل الصورة.',
+        description: 'تم تنزيل الصورة بنجاح.',
+        status: 'success',
+        duration: 1500,
+        isClosable: false,
+        position: 'top',
+      });
+    } else {
+      toast({
+        title: 'لا توجد صورة للتنزيل.',
+        description: 'هذا المنشور لا يحتوي على صورة.',
+        status: 'warning',
+        duration: 1500,
+        isClosable: false,
+        position: 'top',
+      });
+    }
+  };
+
+  // Handle Delete Post
+  const handleDeletePost = async () => {
+    try {
+      // Make API call to delete the post
+      const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
+      if (!token) {
+        throw new Error('User not authenticated');
+      }
+
+      await axios.delete(`https://tarmeezacademy.com/api/v1/posts/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // Notify user of successful deletion
+      toast({
+        title: 'تم حذف المنشور.',
+        description: 'تم حذف المنشور بنجاح.',
+        status: 'success',
+        duration: 1500,
+        isClosable: false,
+        position: 'top',
+      });
+
+      // Inform parent component to remove the post from the UI
+      if (onDelete) {
+        onDelete(id);
+      }
+
+      // Close the confirmation dialog
+      onDeleteClose();
+    } catch (error) {
+      console.error('Error deleting post:', error);
+      toast({
+        title: 'حدث خطأ أثناء حذف المنشور.',
+        description: error.response?.data?.message || 'يرجى المحاولة مرة أخرى لاحقًا.',
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+        position: 'top',
+      });
+    }
   };
 
   return (
     <>
-      {/* Popover يحتوي على خيارات المنشور */}
+      {/* Popover containing post actions */}
       <Popover>
         <PopoverTrigger>
           <Button
@@ -116,20 +197,36 @@ const PostActions = (props) => {
                 تنزيل الصورة
               </Button>
 
-              {/* زر تعديل المنشور */}
-              {authorId===user?.id?  <Button
-                flex={1}
-                justifyContent="flex-start"
-                padding="6px 10px"
-                leftIcon={<FiEdit />}
-                variant="ghost"
-                onClick={onOpen} // فتح النافذة لتعديل المنشور
-              >
-                تعديل المنشور
-              </Button>
-:null}
-            
-              {/* يمكنك إضافة المزيد من الأزرار هنا حسب الحاجة */}
+              {/* Conditionally render "Edit Post" button */}
+              {isAuthor && (
+                <Button
+                  flex={1}
+                  justifyContent="flex-start"
+                  padding="6px 10px"
+                  leftIcon={<FiEdit />}
+                  variant="ghost"
+                  onClick={onEditOpen} // Open the edit modal
+                >
+                  تعديل المنشور
+                </Button>
+              )}
+
+              {/* Conditionally render "Delete Post" button */}
+              {isAuthor && (
+                <Button
+                  flex={1}
+                  justifyContent="flex-start"
+                  padding="6px 10px"
+                  leftIcon={<FiTrash />}
+                  variant="ghost"
+                  colorScheme="red"
+                  onClick={onDeleteOpen} // Open the delete confirmation dialog
+                >
+                  حذف المنشور
+                </Button>
+              )}
+
+              {/* Other action buttons */}
               <Button
                 flex={1}
                 justifyContent="flex-start"
@@ -214,16 +311,65 @@ const PostActions = (props) => {
         </PopoverContent>
       </Popover>
 
-      {/* مكون نافذة التعديل */}
-      <EditPostModal
-        isOpen={isOpen}
-        onClose={onClose}
-        id={id}
-        initialBody={body}
-        onUpdate={onPostUpdate} // دالة لتحديث المنشور بعد التعديل
-      />
+      {/* Edit Post Modal */}
+      {isAuthor && (
+        <EditPostModal
+          isOpen={isEditOpen}
+          onClose={onEditClose}
+          id={id}
+          initialBody={body}
+          onUpdate={onPostUpdate} // Callback to update the post after editing
+        />
+      )}
+
+      {/* Delete Confirmation Dialog */}
+      {isAuthor && (
+        <AlertDialog
+          isOpen={isDeleteOpen}
+          leastDestructiveRef={cancelRef}
+          onClose={onDeleteClose}
+          isCentered
+        >
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader color={"gray.800"} fontSize="lg" fontWeight="bold">
+                حذف المنشور
+              </AlertDialogHeader>
+
+              <AlertDialogBody color={"gray.700"}>
+                هل أنت متأكد أنك تريد حذف هذا المنشور؟ لن تتمكن من استعادته بعد الحذف.
+              </AlertDialogBody>
+
+              <AlertDialogFooter>
+                <Button ref={cancelRef} width={"150px"} onClick={onDeleteClose}>
+                  إلغاء
+                </Button>
+                <Button colorScheme="red" width={"150px"} mr={2} onClick={handleDeletePost} ml={3}>
+                  حذف
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
+      )}
     </>
-  );
+    );
+};
+
+PostActions.propTypes = {
+  postUri: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    body: PropTypes.string.isRequired,
+    profile_image: PropTypes.object, // Adjust based on your data structure
+    author: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      profile_image: PropTypes.string, // Adjust based on your data structure
+      // Add other author fields if necessary
+    }).isRequired,
+    onPostUpdate: PropTypes.func, // Callback function after post update
+  }).isRequired,
+  onDelete: PropTypes.func, // Callback function after post deletion
 };
 
 export default PostActions;
