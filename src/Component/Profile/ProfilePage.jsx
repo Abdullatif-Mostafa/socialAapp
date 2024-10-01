@@ -29,7 +29,10 @@ import { format, formatDistanceToNow } from 'date-fns';
 import { ar } from 'date-fns/locale';
 import { BiChat, BiLike, BiShare } from 'react-icons/bi';
 import "./profile.css";
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import PostActions from '../2-hero/PostActions';
+import SharePost from '../2-hero/SharePost';
+import "../Profile/profile.css"
 
 // Helper function to format timestamp
 const formatTimestamp = (timestamp) => {
@@ -62,25 +65,33 @@ const formatTimestamp = (timestamp) => {
   return format(date, "d MMMM, h:mm a", { locale: ar });
 };
 export default function EnhancedProfilePage() {
-  
+
   const { userId } = useParams();
-  console.log("userId",userId)
+  console.log("userId", userId)
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const fetchUser=async()=>{
-        const response = await fetch(`https://tarmeezacademy.com/api/v1/users/${userId}`);
-        const result = await response.json();
-        console.log("response ",response)
-        setUser(result.data);
+  const navigate=useNavigate();
+  const fetchUser = async () => {
+    try {
+      const response = await fetch(`https://tarmeezacademy.com/api/v1/users/${userId}`);
+      const result = await response.json();
+      console.log("response ", response)
+      setUser(result.data);
+      setLoading(false);
+    }
+    catch (error) {
+      console.error('Error fetching user:', error);
+      setLoading(false);
+    }
   }
   const fetchAllPosts = async () => {
     try {
       // Fetch all posts from the API
       const response = await fetch(`https://tarmeezacademy.com/api/v1/users/${userId}/posts`);
       const result = await response.json();
-      console.log("response ",response)
-      setPosts(result);
+      console.log("response ", response)
+      setPosts(result.data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching posts:', error);
@@ -89,17 +100,17 @@ export default function EnhancedProfilePage() {
   };
   useEffect(() => {
     fetchUser();
-    console.log("user ",user)
+    console.log("user ", user)
   }, []);
   useEffect(() => {
-    if (!user || !user.id) {
-      setLoading(false);
-      return;
-    }
+    // if (!user || !user.id) {
+    //   setLoading(false);
+    //   return;
+    // }
     fetchAllPosts();
   }, []);
-  
-  console.log("posts ",posts)
+
+  console.log("posts ", posts)
   // Display a loading spinner while fetching data
   if (loading) {
     return (
@@ -108,20 +119,22 @@ export default function EnhancedProfilePage() {
       </Flex>
     );
   }
-
+const handleNavigate=()=>{
+  
+}
   return (
     <Box maxW="1000px" mx="auto" py={1}>
       {/* Cover Photo */}
       <Box position="relative">
         <Image
-          src={user?.profile_image || 'https://bit.ly/code-beast'}
+          src={user?.profile_image}
           width="100%"
           height="400px"
           objectFit="cover"
           alt="Cover Photo"
         />
         <Avatar
-          src={user?.profile_image || 'https://bit.ly/code-beast'}
+          src={user?.profile_image}
           size="2xl"
           position="absolute"
           bottom="-50px"
@@ -177,56 +190,68 @@ export default function EnhancedProfilePage() {
           {/* Posts Tab */}
           <TabPanel>
             <Box>
-              <Text fontWeight="bold" mb={4}>منشوراتك</Text>
+              <Text fontWeight="bolder" fontSize={"20px"} mb={4}>المنشورات</Text>
               <Box className='hero'>
-               <h1>posts: {posts.map((item)=>(<h1>{item.id}</h1>))} </h1>
-                {posts.length >0 ? (
-                  posts.map(post => (
-                    <Card key={post.id} maxW='md' mb="4" boxShadow="md">
-                      <CardHeader>
-                        <Flex justify="space-between" width="100%">
-                          <Flex gap="6px">
-                            <Avatar
-                              name={post.author.name}
-                              src={post.author.profile_image}
-                              alt={`${post.author.name}'s avatar`}
-                            />
-                            <Box>
-                              <Heading size='sm'>{post.author.name}</Heading>
-                              <Text fontSize="14px" className='text-muted'>
-                                {formatTimestamp(post.created_at)}
-                              </Text>
-                            </Box>
-                          </Flex>
-                          <IconButton
-                            aria-label='See menu'
-                            icon={<BsThreeDotsVertical />}
-                            variant='ghost'
-                            colorScheme='gray'
-                          />
-                        </Flex>
-                      </CardHeader>
-                      <CardBody>
-                        <Text>{post.body}</Text>
-                      </CardBody>
-                      {post.image && (
-                        <Image
-                          src={post.image}
-                          alt={post.body}
-                          objectFit='cover'
-                          width="100%"
-                          maxH="400px"
-                        />
-                      )}
-                      <CardFooter justify='space-between'>
-                        <Button variant='ghost' leftIcon={<BiLike />}>أعجبني</Button>
-                        <Button variant='ghost' leftIcon={<BiChat />}>تعليق ({post.comments_count})</Button>
-                        <Button variant='ghost' leftIcon={<BiShare />}>مشاركة</Button>
-                      </CardFooter>
-                    </Card>
+                {posts && posts.length > 0 ? (
+                  posts.map((post) => (
+                    <div key={post.id} className='' style={{ cursor: "pointer" }}>
+                      <Card flexGrow={1} maxW='' mb="2">
+                        <CardHeader w={"100%"} bgColor={""}>
+                          {/* <h1>{post.id}</h1> */}
+                          <div className='flexContainer' style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
+                            <Link to={`/profile/${post.author.id}`}>
+                              <div style={{ display: "flex", justifyContent: "", gap: "6px" }}>
+                                <Avatar className='avatar' cursor={"pointer"} name={post.author.name} src={post.author.profile_image} />
+                                <div>
+                                  <Heading cursor={"pointer"} mb='0' size='sm'>{post.author.name}</Heading>
+                                  <Text mb='0' style={{ fontSize: "14px" }} className='text-muted'>
+                                    {formatTimestamp(post.author.created_at)}
+                                  </Text>
+                                </div>
+                              </div>
+                            </Link>
+                            <div>
+                              <PostActions postUri={post.uri} />
+                            </div>
+                          </div>
+                        </CardHeader>
+
+                          <CardBody className='cardBody' onClick={()=>{navigate(`posts/${post.id}`)}}>
+                            <Text>{post.body}</Text>
+                          </CardBody>
+                          {post.image && (
+                            <Image objectFit='cover' src={post.image} alt='Post image' />
+                          )}
+  
+                        <CardFooter justify='space-between' flexWrap='wrap'>
+                          <Button flex='1' variant='ghost' leftIcon={<BiLike />}>
+                            أعجبني
+                          </Button>
+                          <Button flex='1' variant='ghost' leftIcon={<BiChat />}>
+                            تعليق ({post.comments_count})
+                          </Button>
+
+                          {/* Share button with a popover */}
+                          <SharePost postUri={post.id} />
+
+                        </CardFooter>
+                      </Card>
+                      {/* </Link> */}
+                    </div>
                   ))
                 ) : (
-                  <Text>لا توجد منشورات.</Text> 
+                  <>
+                    <Text className='chakra-spinner' fontWeight={"bolder"} textAlign={"center"} color={"gray.700"}>لا توجد منشورات لعرضها.</Text>
+                    <div className='chakra-spinner'>
+                      <Spinner
+                        thickness='4px'
+                        speed='0.65s'
+                        emptyColor='gray.200'
+                        color='blue.500'
+                        size='xl'
+                      />
+                    </div>
+                  </>
                 )}
               </Box>
             </Box>
