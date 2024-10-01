@@ -31,13 +31,14 @@ import EditPostModal from '../EditPost/EditPost';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-const PostActions = ({ postUri, onDelete }) => {
+const PostActions = (props) => {
+  console.log("postUri ",props)
   const [user, setUser] = useState(null);
   const toast = useToast();
 
   // Destructure necessary properties from postUri
-  const { id, body, profile_image, author, onPostUpdate } = postUri;
-  const authorId = author.id;
+  const { id, body, profile_image, author } = props;
+  const authorId = author?.id;
 
   // Fetch user data from localStorage on component mount
   useEffect(() => {
@@ -137,9 +138,9 @@ const PostActions = ({ postUri, onDelete }) => {
       });
 
       // Inform parent component to remove the post from the UI
-      if (onDelete) {
-        onDelete(id);
-      }
+      // if (onDelete) {
+      //   onDelete(id);
+      // }
 
       // Close the confirmation dialog
       onDeleteClose();
@@ -318,7 +319,8 @@ const PostActions = ({ postUri, onDelete }) => {
           onClose={onEditClose}
           id={id}
           initialBody={body}
-          onUpdate={onPostUpdate} // Callback to update the post after editing
+
+          // onUpdate={onPostUpdate} // Callback to update the post after editing
         />
       )}
 

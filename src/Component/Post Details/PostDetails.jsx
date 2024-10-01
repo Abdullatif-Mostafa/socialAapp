@@ -26,6 +26,7 @@ import './postDetails.css';
 
 function PostDetails() {
   const { postId } = useParams(); // Get postId from the URL
+  console.log("postId ",postId)
   const [post, setPost] = useState(null); // Set initial post state as null for loading
   const [comments, setComments] = useState([]); // To store comments
   const [showComments, setShowComments] = useState(false); // Toggle to show/hide comments

@@ -1,5 +1,5 @@
 // PostCard.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Avatar,
   Box,
@@ -25,6 +25,8 @@ import PostActions from '../2-hero/PostActions';
 import SharePost from '../2-hero/SharePost';
 
 function PostCard({ post }) {
+  console.log("post =====",post)
+  const [Post,setPost]=useState()
   const [comments, setComments] = useState(post.comments || []);
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState('');
@@ -58,7 +60,10 @@ function PostCard({ post }) {
     // Return a formatted date if it's older than a day
     return format(date, 'd MMMM, h:mm a', { locale: ar });
   };
-
+useEffect(()=>{
+setPost(post)
+console.log("post",Post)
+},)
   // Handle comment submission
   const handleSubmitComment = () => {
     setLoadingComment(true);
@@ -125,7 +130,7 @@ function PostCard({ post }) {
               </div>
             </div>
             <div>
-              <PostActions postUri={post} />
+              <PostActions post={post} />
             </div>
           </div>
         </CardHeader>
