@@ -159,7 +159,7 @@ function Hero() {
                   <CardHeader w={"100%"} bgColor={""}>
                     {/* <h1>{post.id}</h1> */}
                     <div className='flexContainer' style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
-                      <Link to={`/profile/${post.id}`}>
+                      <Link to={`/profile/${post.author.id}`}>
                         <div style={{ display: "flex", justifyContent: "", gap: "6px" }}>
                           <Avatar className='avatar' cursor={"pointer"} name={post.author.name} src={post.author.profile_image} />
                           <div>
