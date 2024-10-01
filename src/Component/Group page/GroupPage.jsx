@@ -30,9 +30,9 @@ const groupData = {
 // بيانات تجريبية لأعضاء المجموعة
 const members = [
   { id: 1, name: 'أحمد', avatar: 'https://bit.ly/dan-abramov', status: 'online' },
-  { id: 2, name: 'سارة', avatar: 'https://bit.ly/kent-c-dodds', status: 'offline' },
+  { id: 2, name: 'Ali', avatar: 'https://bit.ly/kent-c-dodds', status: 'offline' },
   { id: 3, name: 'محمد', avatar: 'https://bit.ly/prosper-baba', status: 'online' },
-  { id: 4, name: 'ليلى', avatar: 'https://bit.ly/code-beast', status: 'offline' },
+  { id: 4, name: 'Mohamed', avatar: 'https://bit.ly/code-beast', status: 'offline' },
   // يمكن إضافة المزيد من الأعضاء هنا
 ];
 
@@ -40,12 +40,12 @@ const members = [
 const MembersList = () => (
   <VStack align="stretch" spacing={4}>
     {members.map((member) => (
-      <HStack key={member.id} spacing={4}>
-        <Avatar name={member.name} src={member.avatar}>
+      <HStack key={member.id} spacing={4} cursor={'pointer'}>
+        <Avatar name={member.name} src={member.avatar} mb='4'>
           {member.status === 'online' && <AvatarBadge boxSize="1em" bg="green.500" />}
         </Avatar>
         <Box>
-          <Text fontWeight="bold">{member.name}</Text>
+          <Text fontWeight="bold" color={'gray.900'} mb={'0'}>{member.name}</Text>
           <Text fontSize="sm" color="gray.500">
             {member.status === 'online' ? 'متصل الآن' : 'غير متصل'}
           </Text>
@@ -60,17 +60,17 @@ const Posts = () => (
   <VStack align="stretch" spacing={6}>
     {/* منشور تجريبي */}
     <Box bg="white" p={4} borderRadius="md" boxShadow="sm">
-      <HStack spacing={4}>
-        <Avatar name="أحمد" src="https://bit.ly/dan-abramov" />
+      <HStack spacing={4} cursor={'pointer'}>
+        <Avatar name="أحمد" src="https://bit.ly/dan-abramov" mb='4'/>
         <Box>
-          <Text fontWeight="bold">أحمد</Text>
+          <Text fontWeight="bold" color={'gray.700'} mb='0'>أحمد</Text>
           <Text fontSize="sm" color="gray.500">
             متصل الآن
           </Text>
         </Box>
       </HStack>
-      <Text mt={4}>مرحبًا بكم في مجموعة المطورين العرب!</Text>
-      <Image src="https://via.placeholder.com/600x400" alt="Post Image" mt={4} borderRadius="md" />
+      <Text mt={4} color={'gray.700'}>مرحبًا بكم في مجموعة المطورين العرب!</Text>
+      <Image src="https://www.apple.com/newsroom/images/product/os/standard/Apple-WWDC22-announcement-hero_big.jpg.slideshow-xlarge_2x.jpg" alt="Post Image" mt={4} borderRadius="md" />
       <HStack spacing={4} mt={4}>
         <Button leftIcon={<FiUsers />} variant="ghost">
           إعجاب
@@ -123,9 +123,9 @@ const GroupPage = () => {
             </Box>
           </HStack>
           <HStack spacing={4}>
-            <Button colorScheme="blue" leftIcon={<FiUsers />}>
+            {/* <Button colorScheme="blue"  width='00px' leftIcon={<FiUsers />}>
               {groupData.isMember ? 'ترك المجموعة' : 'الانضمام إلى المجموعة'}
-            </Button>
+            </Button> */}
             <IconButton icon={<FiShare2 />} aria-label="Share Group" />
             <IconButton icon={<FiSettings />} aria-label="Group Settings" />
           </HStack>
@@ -136,7 +136,7 @@ const GroupPage = () => {
       <Flex mt={20} px={4} py={6} maxW="1200px" mx="auto" w="100%">
         {/* الشريط الجانبي */}
         <Box w={isMobile ? '100%' : '25%'} mr={isMobile ? 0 : 6} mb={isMobile ? 6 : 0}>
-          <Text fontSize="xl" fontWeight="bold" mb={4}>
+          <Text fontSize="xl" fontWeight="bold" color={'gray.900'} mb={4}>
             الأعضاء
           </Text>
           <MembersList />
@@ -147,7 +147,7 @@ const GroupPage = () => {
 
         {/* منطقة المنشورات */}
         <Box w={isMobile ? '100%' : '75%'} bg="gray.50" p={4} borderRadius="md" boxShadow="sm">
-          <Text fontSize="xl" fontWeight="bold" mb={4}>
+          <Text fontSize="xl" fontWeight="bold" color='gray.900' mb={4}>
             المنشورات
           </Text>
           <Posts />
