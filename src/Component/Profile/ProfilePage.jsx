@@ -215,8 +215,7 @@ const handleNavigate=()=>{
                             </div>
                           </div>
                         </CardHeader>
-
-                          <CardBody className='cardBody' onClick={()=>{navigate(`posts/${post.id}`)}}>
+                          <CardBody className='cardBody' onClick={()=>{navigate(`/posts/${post.id}`)}}>
                             <Text>{post.body}</Text>
                           </CardBody>
                           {post.image && (
