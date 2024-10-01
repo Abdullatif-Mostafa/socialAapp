@@ -71,7 +71,7 @@ const EditPostModal = (props) => {
     };
 
     try {
-      const response = await fetch(`https://tarmeezacademy.com/api/v1/posts/30289`, requestOptions);
+      const response = await fetch(`https://tarmeezacademy.com/api/v1/posts/${postId}`, requestOptions);
       const result = await response.json();
       console.log("result ", result)
       
