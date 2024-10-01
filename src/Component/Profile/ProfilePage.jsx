@@ -29,6 +29,7 @@ import { format, formatDistanceToNow } from 'date-fns';
 import { ar } from 'date-fns/locale';
 import { BiChat, BiLike, BiShare } from 'react-icons/bi';
 import "./profile.css";
+import { useParams } from 'react-router-dom';
 
 // Helper function to format timestamp
 const formatTimestamp = (timestamp) => {
@@ -60,16 +61,24 @@ const formatTimestamp = (timestamp) => {
 
   return format(date, "d MMMM, h:mm a", { locale: ar });
 };
-
 export default function EnhancedProfilePage() {
+  
+  const { userId } = useParams();
+  console.log("userId",userId)
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const fetchUser=async()=>{
+        const response = await fetch(`https://tarmeezacademy.com/api/v1/users/${userId}`);
+        const result = await response.json();
+        console.log("response ",response)
+        setUser(result.data);
+  }
   // Fetch user data from localStorage on component mount
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    setUser(storedUser);
+    fetchUser();
+    // const storedUser = JSON.parse(localStorage.getItem("user"));
+    // setUser(storedUser);
     console.log("user ",user)
   }, []);
 
@@ -126,7 +135,7 @@ setPosts(result)
   }
 
   return (
-    <Box maxW="1000px" mx="auto" py={6}>
+    <Box maxW="1000px" mx="auto" py={1}>
       {/* Cover Photo */}
       <Box position="relative">
         <Image
@@ -143,6 +152,7 @@ setPosts(result)
           bottom="-50px"
           left="20px"
           border="4px solid white"
+          mb={3}
         />
       </Box>
 

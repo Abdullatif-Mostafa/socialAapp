@@ -23,6 +23,7 @@ import { useEffect } from 'react';
 import ReelsPage from './Component/RealsPage/RealsPage';
 import PostDetails from './Component/Post Details/PostDetails';
 import EditPostModal from './Component/EditPost/EditPost';
+import GroupPage from './Component/Group page/GroupPage';
 
 function App() {
   // localStorage.setItem("token","155589|VQEXjQLKVSseupN27NVOahjr8ItsUsOyrbSvGL0a")
@@ -61,7 +62,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/main" element={<Main />} />
-            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile/:userId" element={<ProfilePage />} />
             <Route path="/friendspage" element={<FriendsPage />} />
             <Route path="/realspage" element={<ReelsPage />} />
             <Route path="/savedItems" element={<SavedItemsPage />} />
@@ -76,6 +77,7 @@ function App() {
             <Route path="/storiesPage" element={<StoriesPage />} />
             <Route path='posts/:postId' element={<PostDetails/>}/>
             <Route path='EditPostModal' element={<EditPostModal/>}/>
+            <Route path='GroupPage' element={<GroupPage/>}/>
           </>
         ) : null}
       </Routes>

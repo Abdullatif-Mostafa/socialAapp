@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Box,
   Avatar,
@@ -31,13 +31,22 @@ export default function AccountMenu() {
   const navigate=useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
-  
+  const [user,setUser]=useState() 
   const handleLogout = () => {
     dispatch(logout());
     onClose();
     navigate('/login') // Close the dialog after logout
   };
-
+  useEffect(()=>{
+    const user = localStorage.getItem('user');
+    if(!user){
+      navigate('/login')
+    }
+    else{
+      const obj = JSON.parse(user);
+      setUser(obj)
+    }
+  },[])
   return (
     <Box className='AccountMenu' display="flex" alignItems="center" textAlign="center">
       <Menu>
@@ -59,13 +68,13 @@ export default function AccountMenu() {
           my={2}
           zIndex={333}
         >
-          <Link to={"/Profile"}>
+          <Link to={`/Profile/${user?.id}`}>
             <MenuItem fontSize={"18px"} color="black" _hover={{ bg: 'gray.100' }}>
               <Avatar gap={"5"} size="sm" mr={2} me={2} />
               الملف الشخصي
             </MenuItem>
           </Link>
-          <Link to={'/Profile'}>
+          <Link to={`/Profile/${user?.id}`}>
             <MenuItem fontSize={"18px"} color="black" _hover={{ bg: 'gray.100' }}>
               <Avatar size="sm" mr={2} me={2} />
               حسابي

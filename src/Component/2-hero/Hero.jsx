@@ -114,12 +114,10 @@ function Hero() {
 
     return format(date, "d MMMM, h:mm a", { locale: ar });
   };
-
   // Function to handle sharing on social media platforms
   const handleShare = (platform, postUri) => {
     const url = encodeURIComponent(postUri);
     let shareUrl = '';
-
     switch (platform) {
       case 'facebook':
         shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
@@ -157,18 +155,21 @@ function Hero() {
             posts.map((post) => (
               <div key={post.id} className='' style={{cursor:"pointer"}}>
                 <Card flexGrow={1} maxW='' mb="2">
+                  
                   <CardHeader w={"100%"} bgColor={""}>
                     {/* <h1>{post.id}</h1> */}
                     <div className='flexContainer' style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
-                      <div style={{ display: "flex", justifyContent: "", gap: "6px" }}>
-                        <Avatar className='avatar' cursor={"pointer"} name={post.author.name} src={post.author.profile_image} />
-                        <div>
-                          <Heading cursor={"pointer"} mb='0' size='sm'>{post.author.name}</Heading>
-                          <Text mb='0' style={{ fontSize: "14px" }} className='text-muted'>
-                            {formatTimestamp(post.author.created_at)}
-                          </Text>
+                      <Link to={`/profile/${post.id}`}>
+                        <div style={{ display: "flex", justifyContent: "", gap: "6px" }}>
+                          <Avatar className='avatar' cursor={"pointer"} name={post.author.name} src={post.author.profile_image} />
+                          <div>
+                            <Heading cursor={"pointer"} mb='0' size='sm'>{post.author.name}</Heading>
+                            <Text mb='0' style={{ fontSize: "14px" }} className='text-muted'>
+                              {formatTimestamp(post.author.created_at)}
+                            </Text>
+                          </div>
                         </div>
-                      </div>
+                      </Link>    
                       <div>
                         <PostActions postUri={post.uri} />
                       </div>

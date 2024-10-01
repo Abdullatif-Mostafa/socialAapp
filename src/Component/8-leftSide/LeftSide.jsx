@@ -46,11 +46,13 @@ const LeftSidebar = () => {
         <h5 className='text-dark'>المجموعات</h5>
         <ListGroup variant="flush">
           {groups.map((group) => (
+            <Link to='/GroupPage'>
             <ListGroup.Item key={group.id} style={{ fontSize: "17px", border: "none", backgroundColor: "#f5f6f7" }} className="messenger-contact mb-1 d-flex gap-2">
               {/* <FaUserCircle className="contact-icon" size={32} /> */}
               <Avatar src={group.avatar} cursor={"pointer"}></Avatar>
               {group.name}
             </ListGroup.Item>
+            </Link>
           ))}
         </ListGroup>
       </div>
