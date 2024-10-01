@@ -1,31 +1,14 @@
+// Hero.js
 import React, { useEffect, useState } from 'react';
 import "./hero.css";
 import {
-  Avatar,
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
   Container,
-  Image,
   Spinner,
   Text,
-  Heading,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverHeader,
-  PopoverBody,
 } from '@chakra-ui/react';
-import { BiLike, BiChat, BiShare } from 'react-icons/bi';
-import { FiFacebook, FiTwitter, FiLinkedin, FiCopy, FiMessageCircle } from 'react-icons/fi';  // Added FiMessageCircle for WhatsApp
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts } from '../../RTK/Slices/PostSlice';
-import { formatDistanceToNow, format } from 'date-fns';
-import { ar } from 'date-fns/locale';  // استيراد اللغة العربية
+import { ar } from 'date-fns/locale';
 import CreatePost from '../Posts/CreatePost';
 import PostActions from './PostActions';
 import RightSidebar from './../7-rightSide/RightSide';
@@ -33,6 +16,7 @@ import LeftSidebar from './../8-leftSide/LeftSide';
 import SharePost from './SharePost';
 import StoriesPage from '../Stories Page/StoriesPage';
 import { Link } from 'react-router-dom';
+import PostCard from '../Posts/Post';
 
 function Hero() {
   const [page, setPage] = useState(1);
@@ -72,7 +56,6 @@ function Hero() {
       // alert('Login failed. Please try again.');
     }
   };
-  
 
   useEffect(() => {
     dispatch(fetchPosts(page));
@@ -81,7 +64,7 @@ function Hero() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+      if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 5) {
         if (status !== 'loading' && hasMore) {
           setPage((prevPage) => prevPage + 1);  // Load the next page when scrolled to the bottom
         }
@@ -91,54 +74,6 @@ function Hero() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [status, hasMore]);
-
-  // Format the timestamp in Arabic
-  const formatTimestamp = (timestamp) => {
-    const date = new Date(timestamp);
-    const now = new Date();
-    const timeDifference = now - date;
-
-    if (timeDifference < 24 * 60 * 60 * 1000) {
-      let relativeTime = formatDistanceToNow(date, { locale: ar, addSuffix: true });
-      relativeTime = relativeTime
-        .replace(/\s*حوالي\s*/g, '')
-        .replace(/\s*تقريباً\s*/g, '')
-        .replace(/\س*ساعات\s*/g, 'س')
-        .replace(/\سساعة\s/g, 'س')
-        .replace(/\س*دقائق\s*/g, 'د')
-        .replace(/\س*دقيقة\s*/g, 'د')
-        .replace(/\س*أيام\s*/g, 'ي')
-        .replace(/\س*يوم\s*/g, 'ي');
-      return relativeTime.trim();
-    }
-
-    return format(date, "d MMMM, h:mm a", { locale: ar });
-  };
-  // Function to handle sharing on social media platforms
-  const handleShare = (platform, postUri) => {
-    const url = encodeURIComponent(postUri);
-    let shareUrl = '';
-    switch (platform) {
-      case 'facebook':
-        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-        break;
-      case 'twitter':
-        shareUrl = `https://twitter.com/intent/tweet?url=${url}`;
-        break;
-      case 'linkedin':
-        shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;
-        break;
-      case 'whatsapp':
-        shareUrl = `https://api.whatsapp.com/send?text=${url}`;
-        break;
-      default:
-        break;
-    }
-
-    if (shareUrl) {
-      window.open(shareUrl, '_blank', 'noopener,noreferrer');
-    }
-  };
 
   return (
     <Container>
@@ -153,55 +88,13 @@ function Hero() {
           {/* Show posts or loading spinner */}
           {posts && posts.length > 0 ? (
             posts.map((post) => (
-              <div key={post.id} className='' style={{cursor:"pointer"}}>
-                <Card flexGrow={1} maxW='' mb="2">
-                  
-                  <CardHeader w={"100%"} bgColor={""}>
-                    {/* <h1>{post.id}</h1> */}
-                    <div className='flexContainer' style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
-                      <Link to={`/profile/${post.author.id}`}>
-                        <div style={{ display: "flex", justifyContent: "", gap: "6px" }}>
-                          <Avatar className='avatar' cursor={"pointer"} name={post.author.name} src={post.author.profile_image} />
-                          <div>
-                            <Heading cursor={"pointer"} mb='0' size='sm'>{post.author.name}</Heading>
-                            <Text mb='0' style={{ fontSize: "14px" }} className='text-muted'>
-                              {formatTimestamp(post.author.created_at)}
-                            </Text>
-                          </div>
-                        </div>
-                      </Link>    
-                      <div>
-                        <PostActions postUri={post.uri} />
-                      </div>
-                    </div>
-                  </CardHeader>
-                    <Link to={`posts/${post.id}`}>
-                  <CardBody className='cardBody'>
-                    <Text>{post.body}</Text>
-                  </CardBody>
-                  {post.image && (
-                    <Image objectFit='cover' src={post.image} alt='Post image' />
-                  )}
-                  </Link>
-                  <CardFooter justify='space-between' flexWrap='wrap'>
-                    <Button flex='1' variant='ghost' leftIcon={<BiLike />}>
-                      أعجبني
-                    </Button>
-                    <Button flex='1' variant='ghost' leftIcon={<BiChat />}>
-                      تعليق ({post.comments_count})
-                    </Button>
-
-                    {/* Share button with a popover */}
-                    <SharePost postUri={post.id} />
-
-                  </CardFooter>
-                </Card>
-               {/* </Link> */}
-              </div>
+              <PostCard key={post.id} post={post} />
             ))
           ) : (
             <>
-              <Text className='chakra-spinner' fontWeight={"bolder"} textAlign={"center"} color={"gray.700"}>لا توجد منشورات لعرضها.</Text>
+              <Text className='chakra-spinner' fontWeight={"bolder"} textAlign={"center"} color={"gray.700"}>
+                لا توجد منشورات لعرضها.
+              </Text>
               <div className='chakra-spinner'>
                 <Spinner
                   thickness='4px'
@@ -221,4 +114,5 @@ function Hero() {
     </Container>
   );
 }
+
 export default Hero;

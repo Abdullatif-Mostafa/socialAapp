@@ -13,13 +13,13 @@ import {
   VStack,
   Textarea,
   useToast,
+  CardHeader,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import SharePost from '../2-hero/SharePost';
 import { BiChat, BiLike } from 'react-icons/bi';
 import PostActions from '../2-hero/PostActions';
-import { CardHeader } from 'react-bootstrap';
 import { format, formatDistanceToNow } from 'date-fns';
 import { ar } from 'date-fns/locale';
 import './postDetails.css';

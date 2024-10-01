@@ -24,6 +24,7 @@ import ReelsPage from './Component/RealsPage/RealsPage';
 import PostDetails from './Component/Post Details/PostDetails';
 import EditPostModal from './Component/EditPost/EditPost';
 import GroupPage from './Component/Group page/GroupPage';
+import Post from './Component/Posts/Post';
 
 function App() {
   // localStorage.setItem("token","155589|VQEXjQLKVSseupN27NVOahjr8ItsUsOyrbSvGL0a")
@@ -78,6 +79,7 @@ function App() {
             <Route path='posts/:postId' element={<PostDetails/>}/>
             <Route path='EditPostModal' element={<EditPostModal/>}/>
             <Route path='GroupPage' element={<GroupPage/>}/>
+            <Route path='Post' element={<Post/>}/>
           </>
         ) : null}
       </Routes>
