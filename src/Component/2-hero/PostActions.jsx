@@ -38,11 +38,11 @@ const PostActions = (props) => {
     console.log("user",user)
     if(user){
       const obj=JSON.parse(user)
-      console.log("obj",obj)
+      console.log("obj =================",obj.id)
       setUser(obj)
     }
   },[])
-  // console.log("post ",post)
+  console.log("user id ",user)
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   // دالة لحفظ المنشور
@@ -117,7 +117,7 @@ const PostActions = (props) => {
               </Button>
 
               {/* زر تعديل المنشور */}
-              {authorId===user.id?  <Button
+              {authorId===user?.id?  <Button
                 flex={1}
                 justifyContent="flex-start"
                 padding="6px 10px"

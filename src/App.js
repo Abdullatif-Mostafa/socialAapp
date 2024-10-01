@@ -27,6 +27,17 @@ import GroupPage from './Component/Group page/GroupPage';
 import Post from './Component/Posts/Post';
 
 function App() {
+  // const user = {
+  //   comments_count: 4,
+  //   email: "Ahmededrys8@gmail.com",
+  //   id: 16354,
+  //   name: "احمد",
+  //   posts_count: 1,
+  //   profile_image: {},
+  //   username: "Ahmededrys8@gmail.com",
+  // };
+  
+  // localStorage.setItem('user', JSON.stringify(user));
   // localStorage.setItem("token","155589|VQEXjQLKVSseupN27NVOahjr8ItsUsOyrbSvGL0a")
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
