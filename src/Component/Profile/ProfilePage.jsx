@@ -219,7 +219,7 @@ const handleNavigate=()=>{
                             <Text>{post.body}</Text>
                           </CardBody>
                           {post.image && (
-                            <Image objectFit='cover' src={post.image} alt='Post image' />
+                            <Image objectFit='cover' w={"100%"} src={post.image} alt='Post image' />
                           )}
   
                         <CardFooter justify='space-between' flexWrap='wrap'>
