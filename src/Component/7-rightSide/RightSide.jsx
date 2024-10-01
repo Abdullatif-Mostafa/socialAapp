@@ -9,22 +9,21 @@ import { Avatar } from '@chakra-ui/react';
 const RightSidebar = () => {
   const [user,setUser]=useState()
   useEffect(()=>{
-    const User=JSON.parse(localStorage.getItem("user"))
-    setUser(User)
-   },[])
-  // console.log("user ",user);
-  // const users = [
-  //   { id: 1, name: 'عبدالله سعيد' },
-  //   { id: 2, name: 'ريم عادل' },
-  //   { id: 3, name: 'يوسف أحمد' },
-  //   { id: 4, name: 'نادية مصطفى' }
-  // ];
+    const user = localStorage.getItem('user');
+    if(!user){
+      const obj = JSON.parse(user);
+      setUser(obj)
+      // navigate('/login')
+    }
+  },[])
+  console.log("user id ",user?.id);
+  
   const username=user?.name || "احمد علي" 
   console.log("name ",username);
   
   const groups = [
     {id:9,name: username ,icon:<Avatar className='avatar' cursor={"pointer"} name={user?.name} src={user?.profile_image} />
-    ,path:"/profile"},
+    ,path:`/profile/${user?.id}`},
     { id: 3, name: 'الأصدقاء', icon: <FaUserFriends />,path:"/friendspage" },
     { id: 1, name: 'العناصر المحفوظة', icon: <FaBookmark />,path:"/savedItems" },
     { id: 6, name: 'الرسائل', icon: <FaFacebookMessenger />,path:"/messages" },
