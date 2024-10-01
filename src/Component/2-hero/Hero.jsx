@@ -1,14 +1,39 @@
-// Hero.js
+// src/components/Hero.js
 import React, { useEffect, useState } from 'react';
 import "./hero.css";
 import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
   Container,
+  Image,
   Spinner,
   Text,
+  Heading,
+  VStack,
+  HStack,
+  IconButton,
+  useBreakpointValue,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerHeader,
+  DrawerBody,
+  DrawerCloseButton,
+  useDisclosure,
+  AvatarBadge,
+  Flex,
 } from '@chakra-ui/react';
+import { BiLike, BiChat, BiShare } from 'react-icons/bi';
+import { FiFacebook, FiTwitter, FiLinkedin, FiCopy, FiMessageCircle } from 'react-icons/fi';  // Added FiMessageCircle for WhatsApp
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts } from '../../RTK/Slices/PostSlice';
-import { ar } from 'date-fns/locale';
+import { formatDistanceToNow, format } from 'date-fns';
+import { ar } from 'date-fns/locale';  // استيراد اللغة العربية
 import CreatePost from '../Posts/CreatePost';
 import PostActions from './PostActions';
 import RightSidebar from './../7-rightSide/RightSide';
@@ -16,7 +41,7 @@ import LeftSidebar from './../8-leftSide/LeftSide';
 import SharePost from './SharePost';
 import StoriesPage from '../Stories Page/StoriesPage';
 import { Link } from 'react-router-dom';
-import PostCard from '../Posts/Post';
+import Post from '../Posts/Post'
 
 function Hero() {
   const [page, setPage] = useState(1);
@@ -64,7 +89,7 @@ function Hero() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 5) {
+      if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
         if (status !== 'loading' && hasMore) {
           setPage((prevPage) => prevPage + 1);  // Load the next page when scrolled to the bottom
         }
@@ -76,26 +101,26 @@ function Hero() {
   }, [status, hasMore]);
 
   return (
-    <Container>
-      <div className='row'>
-        <div className='' xs={4}>
+    <Container maxW="container.xl" py={0}>
+      <Flex>
+        {/* الشريط الجانبي الأيمن */}
+        <Box flex="1" mr={4}>
           <RightSidebar />
-        </div>
+        </Box>
 
-        <div className='' xs={12}>
+        {/* المحتوى الرئيسي */}
+        <Box flex="2" mr={4}>
           <CreatePost />
           <StoriesPage/>
-          {/* Show posts or loading spinner */}
+          {/* عرض المنشورات أو مؤشر التحميل */}
           {posts && posts.length > 0 ? (
             posts.map((post) => (
-              <PostCard key={post.id} post={post} />
+              <Post key={post.id} post={post} />
             ))
           ) : (
             <>
-              <Text className='chakra-spinner' fontWeight={"bolder"} textAlign={"center"} color={"gray.700"}>
-                لا توجد منشورات لعرضها.
-              </Text>
-              <div className='chakra-spinner'>
+              <Text fontWeight={"bolder"} textAlign={"center"} color={"gray.700"}>لا توجد منشورات لعرضها.</Text>
+              <Box display="flex" justifyContent="center" mt={4}>
                 <Spinner
                   thickness='4px'
                   speed='0.65s'
@@ -103,14 +128,16 @@ function Hero() {
                   color='blue.500'
                   size='xl'
                 />
-              </div>
+              </Box>
             </>
           )}
-        </div>
-      </div>
-      <div className='col-lg-12' xs={4}>
-        <LeftSidebar />
-      </div>
+        </Box>
+
+        {/* الشريط الجانبي الأيسر */}
+        <Box flex="1">
+          <LeftSidebar />
+        </Box>
+      </Flex>
     </Container>
   );
 }

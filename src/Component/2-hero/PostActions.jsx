@@ -22,7 +22,9 @@ import {
 } from 'react-icons/fi';
 import EditPostModal from '../EditPost/EditPost';
 
-const PostActions = ({ postId, postBody, postUri, imageUrl, onPostUpdate }) => {
+const PostActions = ({ postId, postBody, imageUrl, onPostUpdate }) => {
+  
+  // console.log("post ",post)
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
