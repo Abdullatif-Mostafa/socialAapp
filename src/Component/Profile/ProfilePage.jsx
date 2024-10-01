@@ -98,7 +98,7 @@ export default function EnhancedProfilePage() {
     const fetchAllPosts = async () => {
       try {
         // Fetch all posts from the API
-        const response = await fetch('https://tarmeezacademy.com/api/v1/posts', requestOptions);
+        const response = await fetch(`https://tarmeezacademy.com/api/v1/users/${userId}/posts`);
         const result = await response.json();
         console.log("response ",response)
         setPosts(result.data);
