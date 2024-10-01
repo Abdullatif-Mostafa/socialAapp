@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 
 const EditPostModal = (props) => {
-  console.log(" props ",props)
+  console.log(" props ",props.id)
   const {  isOpen, postId,onClose, initialBody, onUpdate }=props
   const toast = useToast();
   const [body, setBody] = useState(initialBody || ''); // تهيئة الحالة بقيمة initialBody
@@ -130,11 +130,11 @@ const EditPostModal = (props) => {
         </ModalBody>
 
         <ModalFooter>
-          <Button width={"200px"} me={1} variant="ghost" onClick={onClose}>
+          <Button width={"150px"} me={1} variant="ghost" onClick={onClose}>
             إلغاء
           </Button>
           <Button
-            width={"200px"}
+            width={"150px"}
             colorScheme="blue"
             onClick={handleEditPost}
             isLoading={isLoading}
