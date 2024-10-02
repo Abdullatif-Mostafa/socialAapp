@@ -32,13 +32,14 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 const PostActions = (props) => {
-  // console.log("postUri ",props)
+  console.log("postUri ",props.post.author.id)
   const [user, setUser] = useState(null);
   const toast = useToast();
 
   // Destructure necessary properties from postUri
   const { id, body, profile_image, author } = props;
-  const authorId = author?.id;
+  console.log('id ,body ,profile ', id, body, profile_image, author )
+  const authorId = props.post.author.id;
 
   // Fetch user data from localStorage on component mount
   useEffect(() => {
@@ -172,7 +173,7 @@ const PostActions = (props) => {
           />
         </PopoverTrigger>
 
-        <PopoverContent width="270px" marginEnd={'20px'}>
+        <PopoverContent className='postActions' width="270px" marginEnd={'20px'}>
           <PopoverBody mr={0}>
             <Stack spacing={2}>
               <Button
