@@ -194,7 +194,7 @@ export default function EnhancedProfilePage() {
               <Box className='hero'>
                 {posts && posts.length > 0 ? (
                   posts.map((post) => (
-                    <PostCard key={post.id} post={post} />
+                    <PostCard key={post.id} post={post}  />
                   ))
                 ) : (
                   <>

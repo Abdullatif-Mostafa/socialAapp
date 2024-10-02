@@ -30,16 +30,19 @@ import {
 import EditPostModal from '../EditPost/EditPost';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import './hero.css'
 
 const PostActions = (props) => {
-  console.log("postUri ",props.post.author.id)
+  console.log("props ",props)
+  // console.log("postUri ",props.post.author.id)
   const [user, setUser] = useState(null);
   const toast = useToast();
 
   // Destructure necessary properties from postUri
-  const { id, body, profile_image, author } = props;
-  console.log('id ,body ,profile ', id, body, profile_image, author )
-  const authorId = props.post.author.id;
+  // const { id, body, profile_image, author } = props.post;
+  // console.log('id ,body ,profile ', id, body, profile_image, author )
+  const profile_image=props?.post?.image;
+  const authorId = props?.post?.author?.id;
 
   // Fetch user data from localStorage on component mount
   useEffect(() => {
@@ -122,7 +125,7 @@ const PostActions = (props) => {
         throw new Error('User not authenticated');
       }
 
-      await axios.delete(`https://tarmeezacademy.com/api/v1/posts/${id}`, {
+      await axios.delete(`https://tarmeezacademy.com/api/v1/posts/${props.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -173,7 +176,7 @@ const PostActions = (props) => {
           />
         </PopoverTrigger>
 
-        <PopoverContent className='postActions' width="270px" marginEnd={'20px'}>
+        <PopoverContent className='postActions' width="270px">
           <PopoverBody mr={0}>
             <Stack spacing={2}>
               <Button
@@ -317,8 +320,8 @@ const PostActions = (props) => {
         <EditPostModal
           isOpen={isEditOpen}
           onClose={onEditClose}
-          id={id}
-          initialBody={body}
+          id={props?.post?.id}
+          initialBody={props?.post?.body}
 
           // onUpdate={onPostUpdate} // Callback to update the post after editing
         />

@@ -32,8 +32,8 @@ const EditPostModal = (props) => {
     }
   }
   useEffect(() => {
-    // fetchingPostDetails()
-    // setBody(initialBody || '');
+    fetchingPostDetails()
+    setBody(initialBody || '');
   }, [postId]);
 
   const handleEditPost = async () => {
@@ -69,7 +69,6 @@ const EditPostModal = (props) => {
       body: raw,
       redirect: 'follow',
     };
-
     try {
       const response = await fetch(`https://tarmeezacademy.com/api/v1/posts/${props.id}`, requestOptions);
       const result = await response.json();
@@ -113,9 +112,9 @@ const EditPostModal = (props) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} mt={2}>
+    <Modal isOpen={isOpen} onClose={onClose} mt={2} >
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent >
         <ModalHeader>تعديل المنشور</ModalHeader>
         <ModalCloseButton color={"gray.700"} _hover={{color:"white"}} mb={0}/>
         <ModalBody>
