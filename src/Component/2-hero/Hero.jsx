@@ -86,7 +86,7 @@ function Hero() {
     dispatch(fetchPosts(page));
     login();
   }, [dispatch, page]);
-
+  
   useEffect(() => {
     const handleScroll = () => {
       if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
