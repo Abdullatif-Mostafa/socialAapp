@@ -16,7 +16,7 @@ import {
   CardHeader,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import SharePost from '../2-hero/SharePost';
 import { BiChat, BiLike } from 'react-icons/bi';
 import PostActions from '../2-hero/PostActions';
@@ -138,10 +138,11 @@ function PostDetails() {
           </div>
         </Box>
       ) : (
-        <div key={post.id} className='CardBox' style={{ cursor: 'pointer' }}>
-          <Card className='card' flexGrow={1} maxW='500px' mb='2'>
+        <div key={post.id} className='CardBox'  style={{ cursor: 'pointer' }}>
+          <Card className='card' flexGrow={1} maxW='500px' mb='2' p='0'>
             <CardHeader w={'100%'} bgColor={'transparent'}>
               <div className='flexContainer' style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+              <Link to={`/profile/${post.author.id}`}>
                 <div style={{ display: 'flex', justifyContent: '', gap: '6px' }}>
                   <Avatar className='avatar' cursor={'pointer'} name={post.author.name} src={post.author.profile_image} />
                   <div>
@@ -153,6 +154,7 @@ function PostDetails() {
                     </Text>
                   </div>
                 </div>
+                </Link>
                 <div >
                   <PostActions postUri={post.uri}  />
                 </div>

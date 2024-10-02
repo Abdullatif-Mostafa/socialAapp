@@ -72,7 +72,7 @@ export default function EnhancedProfilePage() {
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const fetchUser = async () => {
     try {
       const response = await fetch(`https://tarmeezacademy.com/api/v1/users/${userId}`);
@@ -120,9 +120,6 @@ export default function EnhancedProfilePage() {
       </Flex>
     );
   }
-const handleNavigate=()=>{
-  
-}
   return (
     <Box maxW="1000px" mx="auto" py={1}>
       {/* Cover Photo */}
@@ -146,15 +143,17 @@ const handleNavigate=()=>{
       </Box>
 
       {/* User Info and Actions */}
-      <Flex justify="space-between" mt={6} alignItems="center">
-        <Box ml={4}>
-          <Text fontSize="2xl" fontWeight="bold" color="gray.700">{user?.name}</Text>
+      <Flex justify="space-between" mt={6} alignItems="center" className='profileModification' >
+        <Box className='box' mr={6} textAlign={''} >
+          <Text fontSize="2xl" fontWeight="bold" color="gray.700" mb='1'>{user?.name}</Text>
           <Text color="gray.500">@{user?.username || user?.name}</Text>
         </Box>
         <Button
           style={{ backgroundColor: "#3b5998", color: "#fff", fontSize: "1rem" }}
           size="sm"
-          mr={4}
+          mr={0}
+          maxWidth={'80%'}
+          className='button'
         >
           تعديل الملف الشخصي
         </Button>
@@ -195,7 +194,7 @@ const handleNavigate=()=>{
               <Box className='hero'>
                 {posts && posts.length > 0 ? (
                   posts.map((post) => (
-                      <PostCard key={post.id} post={post} />
+                    <PostCard key={post.id} post={post} />
                   ))
                 ) : (
                   <>
@@ -214,13 +213,14 @@ const handleNavigate=()=>{
               </Box>
             </Box>
           </TabPanel>
-
           {/* Friends Tab */}
           <TabPanel>
             <Text fontWeight="bold" mb={4}>الأصدقاء</Text>
-            <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+            <Grid
+              gridTemplateColumns={{ base: 'repeat(2, 1fr)', sm: 'repeat(1,1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' }}
+              gap={4}>
               {/* Replace with actual friends data if available */}
-              
+
               <GridItem>
                 <Avatar src="https://via.placeholder.com/100" size="lg" />
                 <Text mt={2} textAlign="">احمد محمد</Text>
@@ -233,6 +233,10 @@ const handleNavigate=()=>{
                 <Avatar src="https://via.placeholder.com/100" size="lg" />
                 <Text mt={2} textAlign="">محي الدين</Text>
               </GridItem>
+              <GridItem>
+                <Avatar src="https://via.placeholder.com/100" size="lg" />
+                <Text mt={2} textAlign=""> Ahmed Mohamed</Text>
+              </GridItem>
               {/* Add more friends as needed */}
             </Grid>
           </TabPanel>
@@ -240,7 +244,7 @@ const handleNavigate=()=>{
           {/* Photos Tab */}
           <TabPanel>
             <Text fontWeight="bold" mb={4}>الصور</Text>
-            <Grid templateColumns="repeat(4, 1fr)" gap={4}>
+            <Grid gridTemplateColumns={{ base: 'repeat(2, 1fr)', sm: 'repeat(1,1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' }} gap={4}>
               {/* Replace with actual photos data if available */}
               <GridItem>
                 <Image src="https://via.placeholder.com/300x300" alt="Photo 1" />
@@ -261,7 +265,7 @@ const handleNavigate=()=>{
           {/* Reels and Videos Tab */}
           <TabPanel>
             <Text fontWeight="bold" mb={4}>الريلز والفيديوهات</Text>
-            <Grid templateColumns="repeat(4, 1fr)" gap={4}>
+            <Grid gridTemplateColumns={{ base: 'repeat(2, 1fr)',sm:'repeat(1,1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' }} gap={4}>
               {/* Replace with actual reels and videos data if available */}
               <GridItem>
                 <Image src="https://via.placeholder.com/300x200" alt="Reel 1" />
@@ -286,32 +290,32 @@ const handleNavigate=()=>{
           {/* Groups Tab */}
           <TabPanel>
             <Text fontWeight="bold" mb={4}>المجموعات</Text>
-            <Grid templateColumns="repeat(4, 1fr)" gap={4}>
+            <Grid gridTemplateColumns={{ base: 'repeat(2, 1fr)',sm:'repeat(1,1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' }} gap={4}>
               {/* Replace with actual groups data if available */}
-              <GridItem>
-                <Avatar src="https://via.placeholder.com/100" size="lg" />
-                <Text mt={2} textAlign="center">مجموعة 1</Text>
+              <GridItem bg='' flex={1} justifyContent={'center'} w={'100'} alignItems={'center'} flexDirection={'column'}>
+                <Avatar src="https://via.placeholder.com/100" textAlign={'center'} size="lg" />
+                <Text mt={2} textAlign="">مجموعة 1</Text>
               </GridItem>
               <GridItem>
                 <Avatar src="https://via.placeholder.com/100" size="lg" />
-                <Text mt={2} textAlign="center">مجموعة 2</Text>
+                <Text mt={2} textAlign="">مجموعة 2</Text>
               </GridItem>
               <GridItem>
                 <Avatar src="https://via.placeholder.com/100" size="lg" />
-                <Text mt={2} textAlign="center">مجموعة 3</Text>
+                <Text mt={2} textAlign="">مجموعة 3</Text>
               </GridItem>
               <GridItem>
                 <Avatar src="https://via.placeholder.com/100" size="lg" />
-                <Text mt={2} textAlign="center">مجموعة 4</Text>
+                <Text mt={2} textAlign="">مجموعة 4</Text>
               </GridItem>
               {/* Add more groups as needed */}
             </Grid>
           </TabPanel>
 
           {/* About Tab */}
-          <TabPanel>
+          <TabPanel mr={4}>
             <Text fontWeight="bold" mb={4}>حول</Text>
-            <Box>
+            <Box >
               <Text>الاسم: {user?.name || 'غير متوفر'}</Text>
               <Text>الوظيفة: {user?.job || 'غير متوفر'}</Text>
               <Text>الموقع: {user?.location || 'غير متوفر'}</Text>

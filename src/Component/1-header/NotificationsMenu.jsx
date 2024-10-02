@@ -95,10 +95,9 @@ export default function NotificationsMenu() {
             <MenuItem
               key={notification.id}
               fontSize="16px"
-            //   color="black"
+              // color="black"
               _hover={{ bg: 'gray.100' }}
               p={2}
-            //   minH="60px"
             >
               <Flex align="center" gap={2}>
                 <Avatar size="sm" src={notification.avatar} />

@@ -53,7 +53,7 @@ const SharePost = (props) => {
             title: 'تم نسخ الرابط.',
             description: 'تم نسخ رابط المنشور إلى الحافظة.',
             status: 'success',
-            duration: 1000,
+            duration: 1400,
             // isClosable: true,
             position: 'top',
         });
@@ -66,7 +66,7 @@ const SharePost = (props) => {
                     مشاركة 
                 </Button>
             </PopoverTrigger>
-            <PopoverContent width={"200px"} height={"250px"}>
+            <PopoverContent  me={3} width={"200px"} height={"250px"}>
                 {/* <PopoverArrow /> */}
                 <PopoverCloseButton _hover={{ backgroundColor: "gray.300" }} color={"gray.800"} />
                 <PopoverHeader color={""} mr={6}>شارك المنشور</PopoverHeader>

@@ -84,9 +84,9 @@ const PostActions = (props) => {
 
   // Handle Download Image
   const handleDownloadImage = () => {
-    if (profile_image && profile_image.url) { // Ensure profile_image has a URL
+    if (profile_image) { // Ensure profile_image has a URL
       const link = document.createElement('a');
-      link.href = profile_image.url;
+      link.href = profile_image;
       link.download = 'image.jpg';
       document.body.appendChild(link);
       link.click();
@@ -172,7 +172,7 @@ const PostActions = (props) => {
           />
         </PopoverTrigger>
 
-        <PopoverContent width="270px" marginEnd={'120px'}>
+        <PopoverContent width="270px" marginEnd={'20px'}>
           <PopoverBody mr={0}>
             <Stack spacing={2}>
               <Button

@@ -20,3 +20,23 @@
     background-color: #f0f2f5f5;
     margin: 10px auto;
 }
+.profileModification
+{
+    /* background-color: red; */
+}
+@media (max-width:480px)
+{
+    .hero
+    {
+        width: 100%;
+    }
+    .profileModification .button
+    {
+        width: 60%;
+        margin-left: 10px;
+    }
+    .profileModification .box
+    {
+        width: 35%;
+    }
+}

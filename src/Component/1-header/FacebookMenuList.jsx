@@ -115,14 +115,15 @@ export default function FacebookMenu() {
       </Menu>
 
       {/* Alert Dialog for Logout Confirmation */}
-      <AlertDialog
+      <AlertDialog 
+      
         isOpen={isOpen}
         leastDestructiveRef={cancelRef}
         onClose={onClose}
         isCentered
       >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
+        <AlertDialogOverlay >
+          <AlertDialogContent maxW={'90%'} maxH={'180px'}>
             <AlertDialogHeader fontSize="lg" fontWeight="bold" color="gray.700">
               تأكيد تسجيل الخروج
             </AlertDialogHeader>
@@ -135,7 +136,7 @@ export default function FacebookMenu() {
               <Button ref={cancelRef} onClick={onClose} width="90px">
                 إلغاء
               </Button>
-              <Button colorScheme="red" onClick={handleLogout} ml={3} width="90px">
+              <Button colorScheme="red" onClick={handleLogout} ml={3} mr='2' width="90px">
                 تأكيد
               </Button>
             </AlertDialogFooter>
