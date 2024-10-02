@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 
 const EditPostModal = (props) => {
-  console.log(" props ",props.id)
+  // console.log(" props ",props.id)
   const {  isOpen, postId,onClose, initialBody, onUpdate }=props
   const toast = useToast();
   const [body, setBody] = useState(initialBody || ''); // تهيئة الحالة بقيمة initialBody
@@ -32,9 +32,9 @@ const EditPostModal = (props) => {
     }
   }
   useEffect(() => {
-    fetchingPostDetails()
+    // fetchingPostDetails()
     // setBody(initialBody || '');
-  }, []);
+  }, [postId]);
 
   const handleEditPost = async () => {
     setIsLoading(true);

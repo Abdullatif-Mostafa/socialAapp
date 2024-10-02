@@ -108,7 +108,7 @@ const CreatePost = () => {
       zIndex="999"
     >
       <Flex align="center" mb={4} maxW="600px" mx="auto" cursor={'pointer'}>
-        <Avatar src={user?.profile_image || "https://bit.ly/broken-link"} size="md" mr={4} me={1} />
+        <Avatar src={user?.profile_image || "https://bit.ly/broken-link"} size="md" mr={0} me={1} />
         <Input
           placeholder="ماذا يخطر ببالك؟"
           variant="outline"

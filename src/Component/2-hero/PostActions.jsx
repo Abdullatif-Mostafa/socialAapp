@@ -32,7 +32,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 const PostActions = (props) => {
-  console.log("postUri ",props)
+  // console.log("postUri ",props)
   const [user, setUser] = useState(null);
   const toast = useToast();
 
@@ -52,7 +52,6 @@ const PostActions = (props) => {
       }
     }
   }, []);
-
   // Chakra UI disclosure for EditPostModal
   const {
     isOpen: isEditOpen,
@@ -160,8 +159,8 @@ const PostActions = (props) => {
   return (
     <>
       {/* Popover containing post actions */}
-      <Popover>
-        <PopoverTrigger>
+      <Popover >
+        <PopoverTrigger >
           <Button
             width="20px"
             flex={1}
@@ -173,7 +172,7 @@ const PostActions = (props) => {
           />
         </PopoverTrigger>
 
-        <PopoverContent width="270px" me={4}>
+        <PopoverContent width="270px" marginEnd={'120px'}>
           <PopoverBody mr={0}>
             <Stack spacing={2}>
               <Button

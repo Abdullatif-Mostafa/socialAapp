@@ -218,19 +218,20 @@ const handleNavigate=()=>{
           {/* Friends Tab */}
           <TabPanel>
             <Text fontWeight="bold" mb={4}>الأصدقاء</Text>
-            <Grid templateColumns="repeat(3, 1fr)" gap={4}>
+            <Grid templateColumns="repeat(2, 1fr)" gap={4}>
               {/* Replace with actual friends data if available */}
+              
               <GridItem>
                 <Avatar src="https://via.placeholder.com/100" size="lg" />
-                <Text mt={2} textAlign="center">صديق 1</Text>
+                <Text mt={2} textAlign="">احمد محمد</Text>
               </GridItem>
               <GridItem>
                 <Avatar src="https://via.placeholder.com/100" size="lg" />
-                <Text mt={2} textAlign="center">صديق 2</Text>
+                <Text mt={2} textAlign=""> علي السيد</Text>
               </GridItem>
               <GridItem>
                 <Avatar src="https://via.placeholder.com/100" size="lg" />
-                <Text mt={2} textAlign="center">صديق 3</Text>
+                <Text mt={2} textAlign="">محي الدين</Text>
               </GridItem>
               {/* Add more friends as needed */}
             </Grid>

@@ -32,11 +32,27 @@
     /* margin: 0 auto; */
     margin-bottom:30px;
 }
+.main-content
+{
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100%;
+}
 @media (min-width:994px)
 {
     .hero
     {
         /* background-color: aqua; */
+    }
+    .hero .card .avatar,.hero .card .cardBody
+    {
+        margin-right: 13px;
+    }
+    .main-content
+    {
+        margin: 0 auto;
+        padding: 0;
+        /* max-width: 90%; */
     }
 }
 @media (max-width:480px)
@@ -49,5 +65,10 @@
     {
         margin-right: 13px;
     }
-
+    .main-content
+    {
+        margin: 0 auto;
+        padding: 0;
+        max-width: 90%;
+    }
 }

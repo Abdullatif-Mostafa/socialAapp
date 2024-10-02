@@ -25,7 +25,7 @@ import PostActions from '../2-hero/PostActions';
 import SharePost from '../2-hero/SharePost';
 
 function PostCard({ post }) {
-  console.log("post =====",post)
+//   console.log("post =====",post)
   const [Post,setPost]=useState()
   const [comments, setComments] = useState(post.comments || []);
   const [showComments, setShowComments] = useState(false);
@@ -62,8 +62,8 @@ function PostCard({ post }) {
   };
 useEffect(()=>{
 setPost(post)
-console.log("post",Post)
-},)
+// console.log("post",Post)
+},[post])
   // Handle comment submission
   const handleSubmitComment = () => {
     setLoadingComment(true);

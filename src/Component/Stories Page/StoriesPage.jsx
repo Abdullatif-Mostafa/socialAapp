@@ -72,7 +72,7 @@ const StoriesPage = () => {
   };
 
   return (
-    <Box p={0} textAlign="right" bg="#f0f2f5">
+    <Box p={0} textAlign="right" bg="#f0f2f5" mb='3'>
       <Flex overflowX="scroll" pb={0} css={{ scrollbarWidth: "none" }}>
         {/* Box for creating a story */}
         <Box

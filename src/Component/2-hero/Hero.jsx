@@ -104,12 +104,12 @@ function Hero() {
     <Container maxW="container.xl" py={0}>
       <Flex>
         {/* الشريط الجانبي الأيمن */}
-        <Box flex="1" mr={4}>
+        <Box flex="1" mr={0}>
           <RightSidebar />
         </Box>
 
         {/* المحتوى الرئيسي */}
-        <Box flex="2" mr={4}>
+        <Box flex="2" className='main-content' mr={4} backgroundColor={'transparent'}>
           <CreatePost />
           <StoriesPage/>
           {/* عرض المنشورات أو مؤشر التحميل */}
