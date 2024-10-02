@@ -12,6 +12,7 @@ import {
   useToast,  // Import useToast
 } from '@chakra-ui/react';
 import { FaImage } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const CreatePost = () => {
   const [postText, setPostText] = useState('');
@@ -23,9 +24,12 @@ const CreatePost = () => {
   // const user=localStorage.getItem("user")
   const [user,setUser]=useState()
   useEffect(()=>{
-    const User=JSON.parse(localStorage.getItem("user"))
-    setUser(User)
-   },[])
+    const user = localStorage.getItem('user');
+    if(user){
+      const obj = JSON.parse(user);
+      setUser(obj)
+    }
+  },[])
 
   // Handle image upload
   const handleImageUpload = (e) => {
@@ -108,7 +112,9 @@ const CreatePost = () => {
       zIndex="999"
     >
       <Flex align="center" mb={4} maxW="600px" mx="auto" cursor={'pointer'}>
-        <Avatar src={user?.profile_image || "https://bit.ly/broken-link"} size="md" mr={0} me={1} />
+        <Link to={`/Profile/${user?.id}`}>
+           <Avatar src={user?.profile_image || "https://bit.ly/broken-link"} size="md" mr={0} me={1} />
+        </Link>
         <Input
           placeholder="ماذا يخطر ببالك؟"
           variant="outline"
