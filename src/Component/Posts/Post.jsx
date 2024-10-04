@@ -1,5 +1,5 @@
 // PostCard.js
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Avatar,
   Box,
@@ -23,10 +23,9 @@ import { Link } from 'react-router-dom';
 import '../Post Details/postDetails.css'; // Ensure this CSS is available
 import PostActions from '../2-hero/PostActions';
 import SharePost from '../2-hero/SharePost';
+import PropTypes from 'prop-types';
 
-function PostCard({ post }) {
-//   console.log("post =====",post)
-  const [Post,setPost]=useState()
+function PostCard({ post, onRemovePost }) { // Added onRemovePost prop
   const [comments, setComments] = useState(post.comments || []);
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState('');
@@ -60,10 +59,7 @@ function PostCard({ post }) {
     // Return a formatted date if it's older than a day
     return format(date, 'd MMMM, h:mm a', { locale: ar });
   };
-useEffect(()=>{
-setPost(post)
-// console.log("post",Post)
-},[post])
+
   // Handle comment submission
   const handleSubmitComment = () => {
     setLoadingComment(true);
@@ -109,6 +105,14 @@ setPost(post)
       });
   };
 
+  // Callback to handle post deletion
+  const handlePostDelete = (deletedPostId) => {
+    if (deletedPostId === post.id) {
+      // Remove the post from the UI by calling the parent component's onRemovePost
+      onRemovePost(deletedPostId);
+    }
+  };
+
   return (
     <div key={post.id} className='CardBox' style={{ cursor: 'pointer' }}>
       <Card className='card' flexGrow={1} maxW='500px' mb='1' p={'0'} mt={'0'}>
@@ -130,7 +134,7 @@ setPost(post)
               </div>
             </div>
             <div>
-              <PostActions post={post} />
+              <PostActions postUri={post} onDelete={handlePostDelete} /> {/* Corrected prop name and added onDelete */}
             </div>
           </div>
         </CardHeader>
@@ -138,7 +142,7 @@ setPost(post)
           <CardBody className='cardBody'>
             <Text>{post.body}</Text>
           </CardBody>
-          {post.image && <Image objectFit='cover' maxHeight={'320px'} width={"100%"} src={post.image} alt='Post image' />}
+          {post.image && post.image.url && <Image objectFit='cover' maxHeight={'320px'} width={"100%"} src={post.image.url} alt='Post image' />}
         </Link>
         <CardFooter justify='space-between' flexWrap='wrap'>
           <Button flex='1' variant='ghost' leftIcon={<BiLike />}>
@@ -150,7 +154,7 @@ setPost(post)
             leftIcon={<BiChat />}
             onClick={handleShowComments}
           >
-            تعليق ({post.comments_count})
+            تعليق ({comments.length}) {/* Updated to use comments.length */}
           </Button>
 
           {/* Share button with a popover */}
@@ -190,7 +194,7 @@ setPost(post)
                     <Avatar size='sm' name={comment.author.name} src={comment.author.profile_image} mr={2} />
                     <Box>
                       <Text fontWeight='bold' mb={0}>
-``                        {comment.author.name}
+                        {comment.author.name}
                       </Text>
                       <Text fontSize='xs' color='gray.500'>
                         {formatTimestamp(comment.author.created_at)}
@@ -209,5 +213,34 @@ setPost(post)
     </div>
   );
 }
+
+PostCard.propTypes = {
+  post: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    body: PropTypes.string.isRequired,
+    image: PropTypes.shape({
+      url: PropTypes.string, // Ensure this matches your data structure
+    }),
+    author: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      profile_image: PropTypes.string, // Ensure this matches your data structure
+      // Add other author fields if necessary
+    }).isRequired,
+    comments: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        body: PropTypes.string.isRequired,
+        author: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+          profile_image: PropTypes.string, // Ensure this matches your data structure
+        }).isRequired,
+        created_at: PropTypes.string.isRequired,
+      })
+    ),
+  }).isRequired,
+  onRemovePost: PropTypes.func.isRequired, // Callback to handle post removal
+};
 
 export default PostCard;
