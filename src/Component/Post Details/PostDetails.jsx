@@ -168,7 +168,9 @@ function PostDetails() {
               <Button flex='1' variant='ghost' leftIcon={<BiLike />}>
                 أعجبني
               </Button>
-              <Button flex='1' variant='ghost' leftIcon={<BiChat />} onClick={handleShowComments}>
+              <Button flex='1' variant='ghost' 
+              leftIcon={<BiChat />} 
+              onClick={handleShowComments}>
                 تعليق ({comments.length})
               </Button>
 

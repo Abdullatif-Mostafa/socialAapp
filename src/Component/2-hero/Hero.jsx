@@ -115,7 +115,10 @@ function Hero() {
           {/* عرض المنشورات أو مؤشر التحميل */}
           {posts && posts.length > 0 ? (
             posts.map((post) => (
+              <>
+              {console.log("post hero",post)}
               <Post key={post.id} post={post} />
+              </>
             ))
           ) : (
             <>

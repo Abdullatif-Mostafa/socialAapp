@@ -1,5 +1,5 @@
 // PostCard.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Avatar,
   Box,
@@ -26,6 +26,9 @@ import SharePost from '../2-hero/SharePost';
 import PropTypes from 'prop-types';
 
 function PostCard({ post, onRemovePost }) { // Added onRemovePost prop
+  console.log("post ",post)
+  console.log("post.comments  ",post.comments)
+  console.log("post.comments_count  ",post.comments_count)
   const [comments, setComments] = useState(post.comments || []);
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState('');
@@ -37,6 +40,15 @@ function PostCard({ post, onRemovePost }) { // Added onRemovePost prop
     setShowComments(!showComments);
   };
 
+  const fetchingPostDetails = () => {
+    fetch(`https://tarmeezacademy.com/api/v1/posts/${post.id}`)
+      .then((response) => response.json())
+      .then((result) => {
+        // setPost(result.data);
+        setComments(result.data.comments);
+      })
+      .catch((error) => console.log('error', error));
+  };
   // Format timestamp to Arabic with relative time
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
@@ -59,6 +71,10 @@ function PostCard({ post, onRemovePost }) { // Added onRemovePost prop
     // Return a formatted date if it's older than a day
     return format(date, 'd MMMM, h:mm a', { locale: ar });
   };
+  useEffect(()=>{
+    fetchingPostDetails();
+    console.log("comments ",comments)
+  },[comments])
 
   // Handle comment submission
   const handleSubmitComment = () => {
@@ -148,14 +164,12 @@ function PostCard({ post, onRemovePost }) { // Added onRemovePost prop
           <Button flex='1' variant='ghost' leftIcon={<BiLike />}>
             أعجبني
           </Button>
-          <Button
-            flex='1'
-            variant='ghost'
-            leftIcon={<BiChat />}
-            onClick={handleShowComments}
-          >
-            تعليق ({comments.length}) {/* Updated to use comments.length */}
-          </Button>
+          <Button flex='1' variant='ghost' 
+              leftIcon={<BiChat />} 
+              onClick={handleShowComments}>
+                تعليق ({comments.length})
+              </Button>
+
 
           {/* Share button with a popover */}
           <SharePost postUri={post.id} />
@@ -166,7 +180,6 @@ function PostCard({ post, onRemovePost }) { // Added onRemovePost prop
             <Heading size='md' mb={3}>
               التعليقات
             </Heading>
-
             {/* Create comment input */}
             <Box mb={4}>
               <Textarea
