@@ -150,7 +150,7 @@ setPost(post)
             leftIcon={<BiChat />}
             onClick={handleShowComments}
           >
-            تعليق ({comments.length})
+            تعليق ({post.comments_count})
           </Button>
 
           {/* Share button with a popover */}
@@ -190,7 +190,7 @@ setPost(post)
                     <Avatar size='sm' name={comment.author.name} src={comment.author.profile_image} mr={2} />
                     <Box>
                       <Text fontWeight='bold' mb={0}>
-                        {comment.author.name}
+``                        {comment.author.name}
                       </Text>
                       <Text fontSize='xs' color='gray.500'>
                         {formatTimestamp(comment.author.created_at)}

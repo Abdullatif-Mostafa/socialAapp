@@ -40,19 +40,11 @@
 }
 @media (min-width:994px)
 {
-    .hero
-    {
-        /* background-color: aqua; */
-    }
-    .hero .card .avatar,.hero .card .cardBody
-    {
-        margin-right: 13px;
-    }
     .main-content
     {
         margin: 0 auto;
         padding: 0;
-        /* max-width: 90%; */
+        background-color: red;
     }
 }
 .postActions
@@ -63,17 +55,14 @@
 {
     .hero
     {
-        width: 90%;
-    }
-    .hero .card .avatar,.hero .card .cardBody
-    {
-        margin-right: 13px;
+        width: 95%;
     }
     .main-content
     {
         margin: 0 auto;
         padding: 0;
         max-width: 100%;
+        background-color: red;
     }
     .postActions
     {
