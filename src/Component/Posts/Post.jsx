@@ -203,15 +203,19 @@ function PostCard({ post, onRemovePost }) { // Added onRemovePost prop
             {comments.length > 0 ? (
               <VStack spacing={4} align='stretch'>
                 {comments.map((comment) => (
+                  
                   <Box key={comment.id} display='flex' alignItems='flex-start' p={2} borderWidth={1} borderRadius='lg'>
-                    <Avatar size='sm' name={comment.author.name} src={comment.author.profile_image} mr={2} />
-                    <Box>
+                   <Link to={`/profile/${comment.author.id}`}>
+                     <Avatar size='sm' mt={1} name={comment.author.name}  me='1' src={comment.author.profile_image} mr={2} />
+                   </Link>
+                    <Box mb={1}>
                       <Text fontWeight='bold' mb={0}>
                         {comment.author.name}
                       </Text>
                       <Text fontSize='xs' color='gray.500'>
                         {formatTimestamp(comment.author.created_at)}
                       </Text>
+                      
                       <Text>{comment.body}</Text>
                     </Box>
                   </Box>

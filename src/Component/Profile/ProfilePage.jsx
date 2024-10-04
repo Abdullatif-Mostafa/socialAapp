@@ -102,14 +102,14 @@ export default function EnhancedProfilePage() {
   useEffect(() => {
     fetchUser();
     console.log("user ", user)
-  }, []);
+  }, [user]);
   useEffect(() => {
     // if (!user || !user.id) {
     //   setLoading(false);
     //   return;
     // }
     fetchAllPosts();
-  }, []);
+  }, [posts]);
 
   console.log("posts ", posts)
   // Display a loading spinner while fetching data
