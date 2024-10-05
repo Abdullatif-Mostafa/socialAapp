@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 // Define the async thunk for fetching products
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async (page = 1) => {
-  const response = await fetch(`https://tarmeezacademy.com/api/v1/posts?limit=10&page=${page}`);
+  const response = await fetch(`https://tarmeezacademy.com/api/v1/posts?limit=15&page=${page}`);
   const data = await response.json();
   console.log("Fetched data for page", page, ":", data.data);
   return { posts: data.data, hasMore: data.data.length > 0 }; // return posts and check if there are more posts to load
