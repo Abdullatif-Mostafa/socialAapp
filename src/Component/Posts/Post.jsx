@@ -1,4 +1,3 @@
-// PostCard.js
 import React, { useEffect, useState } from 'react';
 import {
   Avatar,
@@ -25,9 +24,9 @@ import SharePost from '../2-hero/SharePost';
 import PropTypes from 'prop-types';
 
 function PostCard({ post, onRemovePost }) { // Added onRemovePost prop
-  console.log("post ",post)
-  console.log("post.comments  ",post.comments)
-  console.log("post.comments_count  ",post.comments_count)
+  // console.log("post ",post)
+  // console.log("post.comments  ",post.comments)
+  // console.log("post.comments_count  ",post.comments_count)
   const [comments, setComments] = useState(post.comments || []);
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState('');
@@ -72,8 +71,8 @@ function PostCard({ post, onRemovePost }) { // Added onRemovePost prop
   };
   useEffect(()=>{
     fetchingPostDetails();
-    console.log("comments ",comments)
-  },[comments])
+    // console.log("comments ",comments)
+  },[post.id])
 
   // Handle comment submission
   const handleSubmitComment = () => {

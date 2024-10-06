@@ -87,7 +87,7 @@ function Hero() {
           {posts && posts.length > 0 ? (
             posts.map((post) => (
               <>
-              {console.log("post hero",post)}
+              {/* {console.log("post hero",post)} */}
               <Post key={post.id} post={post} />
               </>
             ))

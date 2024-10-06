@@ -33,7 +33,7 @@ import PropTypes from 'prop-types';
 import './hero.css'
 
 const PostActions = (props) => {
-  console.log("props ",props)
+  // console.log("props ",props)
   // console.log("postUri ",props.post.author.id)
   const [user, setUser] = useState(null);
   const toast = useToast();
