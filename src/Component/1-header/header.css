@@ -262,6 +262,10 @@ color: #000;
   {
     display: none !important;
   }
+  .logoutAlert
+{
+  max-width: 90%;
+}
 
   .header-left .search-bar {
     display: none;

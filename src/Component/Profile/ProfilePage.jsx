@@ -95,7 +95,7 @@ export default function EnhancedProfilePage() {
       setPosts(result.data);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching posts:', error);
+      // console.error('Error fetching posts:', error);
       setLoading(false);
     }
   };

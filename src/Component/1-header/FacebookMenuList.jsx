@@ -123,7 +123,7 @@ export default function FacebookMenu() {
         isCentered
       >
         <AlertDialogOverlay >
-          <AlertDialogContent maxW={'90%'} maxH={'180px'}>
+          <AlertDialogContent className='logoutAlert'  maxH={'180px'}>
             <AlertDialogHeader fontSize="lg" fontWeight="bold" color="gray.700">
               تأكيد تسجيل الخروج
             </AlertDialogHeader>

@@ -2,45 +2,18 @@
 import React, { useEffect, useState } from 'react';
 import "./hero.css";
 import {
-  Avatar,
   Box,
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Container,
-  Image,
   Spinner,
   Text,
-  Heading,
-  VStack,
-  HStack,
-  IconButton,
-  useBreakpointValue,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerHeader,
-  DrawerBody,
-  DrawerCloseButton,
-  useDisclosure,
-  AvatarBadge,
   Flex,
+  Container,
 } from '@chakra-ui/react';
-import { BiLike, BiChat, BiShare } from 'react-icons/bi';
-import { FiFacebook, FiTwitter, FiLinkedin, FiCopy, FiMessageCircle } from 'react-icons/fi';  // Added FiMessageCircle for WhatsApp
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts } from '../../RTK/Slices/PostSlice';
-import { formatDistanceToNow, format } from 'date-fns';
-import { ar } from 'date-fns/locale';  // استيراد اللغة العربية
 import CreatePost from '../Posts/CreatePost';
-import PostActions from './PostActions';
 import RightSidebar from './../7-rightSide/RightSide';
 import LeftSidebar from './../8-leftSide/LeftSide';
-import SharePost from './SharePost';
 import StoriesPage from '../Stories Page/StoriesPage';
-import { Link } from 'react-router-dom';
 import Post from '../Posts/Post'
 
 function Hero() {
@@ -86,7 +59,6 @@ function Hero() {
     dispatch(fetchPosts(page));
     login();
   }, [dispatch, page]);
-  
   useEffect(() => {
     const handleScroll = () => {
       if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
@@ -95,7 +67,6 @@ function Hero() {
         }
       }
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [status, hasMore]);
