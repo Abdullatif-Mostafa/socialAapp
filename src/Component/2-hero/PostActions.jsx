@@ -39,6 +39,8 @@ const PostActions = (props) => {
   const toast = useToast();
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
+    console.log("storeduser",storedUser);
+    
     if (storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
@@ -70,6 +72,7 @@ const PostActions = (props) => {
     onClose: onDeleteClose,
   } = useDisclosure();
   const cancelRef = useRef();
+console.log("user ",user);
 
   // Determine if the current user is the author of the post
   const isAuthor = user?.id === authorId;
