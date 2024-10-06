@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ListGroup } from 'react-bootstrap';
-import { FaBell, FaCog, FaCogs, FaFacebookMessenger, FaUser, FaUserCircle } from 'react-icons/fa';
-import { FaBookmark, FaFilm, FaUserFriends, FaNewspaper, FaClock, FaEnvelope, FaAd } from 'react-icons/fa';
-import './right.css'; // Custom CSS for advanced sidebar
+import {  FaCogs, FaFacebookMessenger } from 'react-icons/fa';
+import { FaBookmark, FaFilm, FaUserFriends, FaNewspaper, FaClock, FaAd } from 'react-icons/fa';
+import './right.css';
 import { Link } from 'react-router-dom';
 import { Avatar } from '@chakra-ui/react';
 
@@ -16,10 +16,10 @@ const RightSidebar = () => {
       // navigate('/login')
     }
   },[])
-  console.log("user id ",user?.id);
+  // console.log("user id ",user?.id);
   
   const username=user?.name || "احمد علي" 
-  console.log("name ",username);
+  // console.log("name ",username);
   
   const groups = [
     {id:9,name: username ,icon:<Avatar className='avatar' cursor={"pointer"} name={user?.name} src={user?.profile_image} />

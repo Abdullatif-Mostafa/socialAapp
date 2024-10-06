@@ -72,8 +72,8 @@ const PostActions = (props) => {
   const cancelRef = useRef();
 
   // Determine if the current user is the author of the post
-  const isAuthor = user?.id === authorId;
-
+  const isAuthor = user?.id !== authorId;
+  console.log("isAuthor ",isAuthor)
   // Handle Save Post
   const handleSavePost = () => {
     toast({
