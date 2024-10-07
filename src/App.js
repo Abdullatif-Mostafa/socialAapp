@@ -38,7 +38,7 @@ function App() {
   // };
   
   // localStorage.setItem('user', JSON.stringify(user));
-  localStorage.setItem("token","155589|VQEXjQLKVSseupN27NVOahjr8ItsUsOyrbSvGL0a")
+  // localStorage.setItem("token","155589|VQEXjQLKVSseupN27NVOahjr8ItsUsOyrbSvGL0a")
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
