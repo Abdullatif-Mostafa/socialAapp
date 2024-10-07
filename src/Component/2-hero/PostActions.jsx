@@ -33,13 +33,13 @@ import PropTypes from 'prop-types';
 import './hero.css'
 
 const PostActions = (props) => {
-  console.log("props ",props.postUri)
+  // console.log("props ",props.postUri)
   // console.log("postUri ",props.post.author.id)
   const [user, setUser] = useState(null);
   const toast = useToast();
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
-    console.log("storeduser",storedUser);
+    // console.log("storeduser",storedUser);
     
     if (storedUser) {
       try {
@@ -55,7 +55,7 @@ const PostActions = (props) => {
   // console.log('id ,body ,profile ', id, body, profile_image, author )
   const profile_image=props?.postUri?.image;
   const authorId = props?.postUri?.author?.id;
-  console.log("authorId",authorId)
+  // console.log("authorId",authorId)
   // Fetch user data from localStorage on component mount
  
   // Chakra UI disclosure for EditPostModal
@@ -72,11 +72,11 @@ const PostActions = (props) => {
     onClose: onDeleteClose,
   } = useDisclosure();
   const cancelRef = useRef();
-console.log("user ",user);
+// console.log("user ",user);
 
   // Determine if the current user is the author of the post
   const isAuthor = user?.id === authorId;
-  console.log("isAuthor ",isAuthor)
+  // console.log("isAuthor ",isAuthor)
   // Handle Save Post
   const handleSavePost = () => {
     toast({

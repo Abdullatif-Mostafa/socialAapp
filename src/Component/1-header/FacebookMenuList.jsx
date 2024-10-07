@@ -87,7 +87,7 @@ export default function FacebookMenu() {
           </Link>
 
           {/* Messages */}
-          <Link to='/Messanger'>
+          <Link to='/Messenger'>
             <MenuItem fontSize={"18px"} color="black" _hover={{ bg: 'gray.100' }}>
               <FaFacebookMessenger style={{ marginRight: '10px', marginLeft: '10px' }} /> الرسائل
             </MenuItem>
