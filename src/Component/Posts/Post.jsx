@@ -72,7 +72,7 @@ function PostCard({ post, onRemovePost }) { // Added onRemovePost prop
   useEffect(()=>{
     fetchingPostDetails();
     // console.log("comments ",comments)
-  },[post.id])
+  },[])
 
   // Handle comment submission
   const handleSubmitComment = () => {
@@ -156,8 +156,8 @@ function PostCard({ post, onRemovePost }) { // Added onRemovePost prop
           <CardBody className='cardBody'>
             <Text>{post.body}</Text>
           </CardBody>
-          {post.image && post.image.url && <Image objectFit='cover' maxHeight={'320px'} width={"100%"} src={post.image.url} alt='Post image' />}
-        </Link>
+          {post.image && <Image objectFit='cover' maxHeight={'320px'} src={post.image} alt='Post image' />}
+          </Link>
         <CardFooter justify='space-between' flexWrap='wrap'>
           <Button flex='1' variant='ghost' leftIcon={<BiLike />}>
             أعجبني

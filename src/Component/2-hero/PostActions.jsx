@@ -339,8 +339,8 @@ const PostActions = (props) => {
           isCentered
         >
           <AlertDialogOverlay>
-            <AlertDialogContent>
-              <AlertDialogHeader color={"gray.800"} fontSize="lg" fontWeight="bold">
+            <AlertDialogContent className='deleteAlert'>
+              <AlertDialogHeader color={"gray.800"} fontSize="lg" mb='4' fontWeight="bold">
                 حذف المنشور
               </AlertDialogHeader>
 
@@ -349,10 +349,10 @@ const PostActions = (props) => {
               </AlertDialogBody>
 
               <AlertDialogFooter>
-                <Button ref={cancelRef} width={"150px"} onClick={onDeleteClose}>
+                <Button ref={cancelRef} width={"120px"} onClick={onDeleteClose}>
                   إلغاء
                 </Button>
-                <Button colorScheme="red" width={"150px"} mr={2} onClick={handleDeletePost} ml={3}>
+                <Button colorScheme="red" width={"120px"} mr={2} onClick={handleDeletePost} ml={3}>
                   حذف
                 </Button>
               </AlertDialogFooter>

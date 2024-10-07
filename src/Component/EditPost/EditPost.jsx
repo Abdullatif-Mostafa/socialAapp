@@ -13,6 +13,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
+import './editPost.css'
 
 const EditPostModal = ({ isOpen, postId, onClose, initialBody, onUpdate }) => {
   const toast = useToast();
@@ -132,7 +133,7 @@ const EditPostModal = ({ isOpen, postId, onClose, initialBody, onUpdate }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent className='editAlert'>
         <ModalHeader>تعديل المنشور</ModalHeader>
         <ModalCloseButton color="gray.700" _hover={{ color: 'white' }} />
         <ModalBody>

@@ -1,0 +1,7 @@
+@media (max-width:480px)
+{
+    .editAlert {
+        max-width: 85% !important;
+        margin: 0 auto !important;
+      }
+}
