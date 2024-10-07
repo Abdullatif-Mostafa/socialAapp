@@ -19,7 +19,7 @@ const EditPostModal = ({ isOpen, postId, onClose, initialBody, onUpdate }) => {
   const [body, setBody] = useState(initialBody || '');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  console.log(" postId ====>",postId)
   // Fetch post details if initialBody is not provided
   useEffect(() => {
     const fetchPostDetails = async () => {

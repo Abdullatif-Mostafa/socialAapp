@@ -323,7 +323,7 @@ console.log("user ",user);
         <EditPostModal
           isOpen={isEditOpen}
           onClose={onEditClose}
-          id={props?.postUri?.id}
+          postId={props?.postUri?.id}
           initialBody={props?.postUri?.body}
 
           // onUpdate={onPostUpdate} // Callback to update the post after editing
