@@ -46,7 +46,7 @@ export default function AccountMenu() {
       const obj = JSON.parse(user);
       setUser(obj)
     }
-  },[])
+  },[navigate])
   return (
     <Box className='AccountMenu' display="flex" alignItems="center" textAlign="center">
       <Menu>
@@ -110,8 +110,8 @@ export default function AccountMenu() {
         isCentered
       >
         <AlertDialogOverlay>
-          <AlertDialogContent >
-            <AlertDialogHeader color={"gray.700"} fontSize="lg" fontWeight="bold">
+          <AlertDialogContent className='logoutAlert'>
+            <AlertDialogHeader  color={"gray.700"} fontSize="lg" fontWeight="bold">
               تأكيد تسجيل الخروج
             </AlertDialogHeader>
 

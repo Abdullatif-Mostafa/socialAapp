@@ -279,8 +279,8 @@
   }
 
   .logoutAlert {
-    max-width: 90% !important;
-    background-color: red !important;
+    max-width: 85% !important;
+    margin: 0 auto !important;
   }
 
   .header-left .search-bar {

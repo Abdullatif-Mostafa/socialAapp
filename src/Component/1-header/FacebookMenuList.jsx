@@ -48,7 +48,7 @@ export default function FacebookMenu() {
             fontSize={"18px"}
             className="faList"
             as={IconButton}
-            icon={<FaList />}  // Replaced FaBars with FaList
+            icon={<FaList />}
             variant="link"
             cursor="pointer"
             aria-label="Facebook options"
@@ -123,7 +123,7 @@ export default function FacebookMenu() {
         isCentered
       >
         <AlertDialogOverlay >
-          <AlertDialogContent className='logoutAlert' maxWidth={'440px'} margin={"10px"} maxH={'180px'}>
+          <AlertDialogContent className='logoutAlert' maxWidth={'440px'} maxH={'180px'}>
             <AlertDialogHeader fontSize="lg" fontWeight="bold" color="gray.700">
               تأكيد تسجيل الخروج
             </AlertDialogHeader>
