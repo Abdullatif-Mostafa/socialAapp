@@ -128,7 +128,7 @@ console.log("user ",user);
         throw new Error('User not authenticated');
       }
 
-      await axios.delete(`https://tarmeezacademy.com/api/v1/posts/${props.id}`, {
+      await axios.delete(`https://tarmeezacademy.com/api/v1/posts/${props.postUri.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -323,8 +323,8 @@ console.log("user ",user);
         <EditPostModal
           isOpen={isEditOpen}
           onClose={onEditClose}
-          id={props?.post?.id}
-          initialBody={props?.post?.body}
+          id={props?.postUri?.id}
+          initialBody={props?.postUri?.body}
 
           // onUpdate={onPostUpdate} // Callback to update the post after editing
         />
