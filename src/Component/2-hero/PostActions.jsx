@@ -33,7 +33,7 @@ import PropTypes from 'prop-types';
 import './hero.css'
 
 const PostActions = (props) => {
-  console.log("props ",props)
+  console.log("props ",props.postUri)
   // console.log("postUri ",props.post.author.id)
   const [user, setUser] = useState(null);
   const toast = useToast();
@@ -53,9 +53,9 @@ const PostActions = (props) => {
   // Destructure necessary properties from postUri
   // const { id, body, profile_image, author } = props.post;
   // console.log('id ,body ,profile ', id, body, profile_image, author )
-  const profile_image=props?.post?.image;
-  const authorId = props?.post?.author?.id;
-
+  const profile_image=props?.postUri?.image;
+  const authorId = props?.postUri?.author?.id;
+  console.log("authorId",authorId)
   // Fetch user data from localStorage on component mount
  
   // Chakra UI disclosure for EditPostModal
