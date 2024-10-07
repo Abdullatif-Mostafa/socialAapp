@@ -17,14 +17,14 @@ import {
   AlertDialogBody,
   AlertDialogFooter,
 } from '@chakra-ui/react';
-import { AddIcon, SettingsIcon } from '@chakra-ui/icons';
+import { SettingsIcon } from '@chakra-ui/icons';
 import { FiLogOut } from 'react-icons/fi';
 import { FaList, FaUserFriends, FaFacebookMessenger, FaRegSave } from 'react-icons/fa';
 import { MdPostAdd, MdOutlineOndemandVideo, MdAddPhotoAlternate } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
-import './header.css';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../RTK/Slices/AuthSlice';
+import './header.css';
 
 export default function FacebookMenu() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -123,7 +123,7 @@ export default function FacebookMenu() {
         isCentered
       >
         <AlertDialogOverlay >
-          <AlertDialogContent className='logoutAlert'  maxH={'180px'}>
+          <AlertDialogContent className='logoutAlert' maxWidth={'440px'} margin={"10px"} maxH={'180px'}>
             <AlertDialogHeader fontSize="lg" fontWeight="bold" color="gray.700">
               تأكيد تسجيل الخروج
             </AlertDialogHeader>
