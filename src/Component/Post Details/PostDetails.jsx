@@ -24,7 +24,7 @@ import { format, formatDistanceToNow } from 'date-fns';
 import { ar } from 'date-fns/locale';
 import './postDetails.css';
 
-function PostDetails() {
+function PostDetails({onRemovePost }) {
   const { postId } = useParams(); // Get postId from the URL
   console.log("postId ",postId)
   const [post, setPost] = useState(null); // Set initial post state as null for loading
@@ -54,7 +54,12 @@ function PostDetails() {
   const handleShowComments = () => {
     setShowComments(!showComments);
   };
-
+  const handlePostDelete = (deletedPostId) => {
+    if (deletedPostId === post.id) {
+      // Remove the post from the UI by calling the parent component's onRemovePost
+      onRemovePost(deletedPostId);
+    }
+  };
   // Format timestamp to Arabic with relative time
   const formatTimestamp = (timestamp) => {
     console.log("Received timestamp:", timestamp); // Log the timestamp for debugging
@@ -156,7 +161,7 @@ function PostDetails() {
                 </div>
                 </Link>
                 <div >
-                  <PostActions postUri={post.id}  />
+                  <PostActions postUri={post} onDelete={handlePostDelete}  />
                 </div>
               </div>
             </CardHeader>
