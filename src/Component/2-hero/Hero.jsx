@@ -22,44 +22,11 @@ function Hero() {
   
   const { items: posts, status, hasMore } = useSelector((state) => state.posts);
 
-  const login = async () => {
-    try {
-      const response = await fetch('https://tarmeezacademy.com/api/v1/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: "ali12345@gmail.com",
-          password: "123456",
-        }),
-        credentials: 'include', // Include credentials if needed
-      });
-      // Check if response is OK (status code in the range 200-299)
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Login error:', errorData);
-        throw new Error(errorData.error || 'Login failed');
-      }
-      // Parse the JSON response
-      const data = await response.json();
-      console.log('Login success:', data);
-      // Optionally handle the data (e.g., store tokens, navigate, etc.)
-      // localStorage.setItem('token', data.token);
-      // navigate('/home'); // Redirect or navigate as needed
-    } catch (error) {
-      // Handle any errors that occurred during fetch or response processing
-      console.error('Error during login:', error.message);
-      // Display a user-friendly error message if necessary
-      // alert('Login failed. Please try again.');
-    }
-  };
-
   useEffect(() => {
     dispatch(fetchPosts(page));
-    login();
-  }, [dispatch, page]);
+  }, [dispatch, page,CreatePost]);
   useEffect(() => {
+
     const handleScroll = () => {
       if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
         if (status !== 'loading' && hasMore) {
