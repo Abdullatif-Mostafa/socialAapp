@@ -74,8 +74,8 @@ const CreatePost = () => {
 
         // Show success toast
         toast({
-          title: "Post Created",
-          description: "Your post has been created successfully.",
+          title: "تم إنشاء المنشور",
+          description: "تم إنشاء منشورك بنجاح.",
           status: "success",
           duration: 2000,
           isClosable: true,
@@ -86,7 +86,7 @@ const CreatePost = () => {
         setPostText('');
         setImage(null);
       } catch (error) {
-        console.error('Error creating post:', error.message);
+        console.error('خطأ في إنشاء المنشور:', error.message);
 
         // Show error toast
         toast({

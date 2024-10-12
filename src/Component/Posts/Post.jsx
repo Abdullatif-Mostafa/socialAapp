@@ -156,7 +156,7 @@ function PostCard({ post, onRemovePost }) { // Added onRemovePost prop
           <CardBody className='cardBody'>
             <Text>{post.body}</Text>
           </CardBody>
-          {post.image && <Image objectFit='cover' maxHeight={'320px'} src={post.image} alt='Post image' />}
+          {post.image && <Image objectFit='cover' maxHeight={'320px'} width='100%' src={post.image} alt='Post image' />}
           </Link>
         <CardFooter justify='space-between' flexWrap='wrap'>
           <Button flex='1' variant='ghost' leftIcon={<BiLike />}>
